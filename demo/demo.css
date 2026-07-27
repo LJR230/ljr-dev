@@ -121,9 +121,26 @@ h1 {
 .score-num.mid { color: #fbbf24; }
 .score-num.low { color: var(--danger); }
 .score-label {
+  display: block;
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--faint);
 }
+.score-denom { font-size: 16px; color: var(--faint); font-weight: 400; }
+.score-tier {
+  display: block; font-family: var(--mono); font-size: 11.5px; margin-top: 2px;
+  color: var(--accent);
+}
+.score-tier.mid { color: #fbbf24; }
+.score-tier.low { color: var(--danger); }
+
+.reasons li { list-style: none; position: relative; }
+.dir {
+  font-family: var(--mono); font-weight: 500; display: inline-block;
+  width: 16px; margin-left: -18px; text-align: center;
+}
+.dir-supports { color: var(--accent); }
+.dir-against { color: var(--danger); }
+.dir-unknown { color: var(--faint); }
 
 .block { margin-top: 20px; }
 .block-label {

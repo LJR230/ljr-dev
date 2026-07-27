@@ -5,7 +5,12 @@ import type { ResearchResult } from "./research.js";
 
 export interface ScoreResult {
   score: number;
-  reasons: Array<{ claim: string; evidence: string; source_url: string }>;
+  reasons: Array<{
+    claim: string;
+    evidence: string;
+    source_url: string;
+    direction: "supports" | "against" | "unknown";
+  }>;
 }
 
 const SCORE_SCHEMA = {
@@ -24,8 +29,13 @@ const SCORE_SCHEMA = {
           claim: { type: "string", description: "The scoring claim, one sentence" },
           evidence: { type: "string", description: "The specific evidence supporting it" },
           source_url: { type: "string", description: "URL the evidence came from" },
+          direction: {
+            type: "string",
+            enum: ["supports", "against", "unknown"],
+            description: "Whether this reason pushed the score up, down, or neither",
+          },
         },
-        required: ["claim", "evidence", "source_url"],
+        required: ["claim", "evidence", "source_url", "direction"],
         additionalProperties: false,
       },
     },
@@ -60,9 +70,22 @@ export async function runScoreStage(
       },
       system:
         "You score companies against an Ideal Customer Profile for a sales-qualification " +
-        "pipeline. Every reason must cite evidence actually present in the input, with its " +
-        "source URL. If evidence is thin, score low and say why - never invent evidence. " +
-        "A score above 70 requires clear evidence on industry, size, AND buyer.",
+        "pipeline. Use this rubric:\n" +
+        "- 85-100: affirmative evidence matches industry, size, AND buyer.\n" +
+        "- 60-84: strong match on two criteria; the third unknown or mildly off.\n" +
+        "- 40-59: evidence mixed or mostly unknown; nothing affirmatively disqualifies.\n" +
+        "- 20-39: exactly one clear mismatch (e.g. far outside the size band).\n" +
+        "- 0-19: multiple clear mismatches (e.g. wrong industry AND wrong buyer).\n" +
+        "Missing evidence means UNKNOWN, not a disqualifier: score that criterion " +
+        "neutrally, mark its reason's direction 'unknown', and never score below 20 for " +
+        "thin evidence alone.\n" +
+        "Every reason must cite evidence actually present in the input with its source " +
+        "URL - never invent evidence. Set each reason's direction to 'supports', " +
+        "'against', or 'unknown' by whether it pushed the score up, down, or neither, " +
+        "and order reasons by influence, most influential first. The reasons must " +
+        "collectively justify the number: a score below 40 requires at least one " +
+        "'against' reason stating the concrete mismatch; a score of 70+ requires " +
+        "'supports' reasons covering the core criteria.",
       messages: [
         {
           role: "user",

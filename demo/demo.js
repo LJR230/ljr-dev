@@ -209,15 +209,34 @@
 
     var scoreNum = document.getElementById("r-score");
     var scoreWrap = document.getElementById("r-score-wrap");
+    var scoreTier = document.getElementById("r-score-tier");
     if (r.score === null || r.score === undefined) {
       scoreWrap.style.display = "none";
     } else {
       scoreWrap.style.display = "";
-      scoreNum.textContent = r.score;
-      scoreNum.className = "score-num " + (r.score >= 70 ? "" : r.score >= 40 ? "mid" : "low");
+      var cls = r.score >= 70 ? "" : r.score >= 40 ? "mid" : "low";
+      scoreNum.className = "score-num " + cls;
+      scoreNum.textContent = "";
+      scoreNum.appendChild(document.createTextNode(r.score));
+      var denom = document.createElement("span");
+      denom.className = "score-denom";
+      denom.textContent = "/100";
+      scoreNum.appendChild(denom);
+      scoreTier.textContent =
+        r.score >= 70 ? "strong fit" : r.score >= 40 ? "partial fit" : "weak fit";
+      scoreTier.className = "score-tier " + cls;
     }
 
     fillList("r-reasons", r.reasons || [], function (li, reason) {
+      if (reason.direction) {
+        var dir = document.createElement("span");
+        dir.className = "dir dir-" + reason.direction;
+        dir.textContent =
+          reason.direction === "supports" ? "+" : reason.direction === "against" ? "\u2212" : "?";
+        dir.title = reason.direction === "supports" ? "raised the score"
+          : reason.direction === "against" ? "lowered the score" : "unknown - scored neutrally";
+        li.appendChild(dir);
+      }
       var claim = document.createElement("span");
       claim.textContent = reason.claim + " ";
       var ev = document.createElement("span");
