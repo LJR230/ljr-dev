@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live GTM Agent Demo — LJR</title>
+  <meta name="description" content="Enter a company domain and watch an agent pipeline research it, score ICP fit, and draft a cited cold-email opener — with the real cost of the run." />
+  <!-- Set to the deployed API origin (e.g. https://ljr-dev-api.vercel.app) after creating the Vercel project. -->
+  <meta name="demo-api-base" content="" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="demo.css" />
+</head>
+<body>
+  <main class="wrap">
+    <nav class="top">
+      <a class="back" href="/">&larr; ljr.dev</a>
+    </nav>
+
+    <header class="hero">
+      <p class="kicker">live demo &middot; gtm engineering</p>
+      <h1>Account research agent</h1>
+      <p class="lede">
+        Enter any company domain. A four-stage pipeline reads their site, researches recent
+        signals, scores them against a sample ICP, and drafts a cold-email opener &mdash;
+        every claim cited, and the exact cost of the run shown in dollars. This is the kind
+        of enrichment and scoring system I build.
+      </p>
+    </header>
+
+    <form id="run-form" class="run-form" autocomplete="off">
+      <input id="domain-input" type="text" inputmode="url" placeholder="acme.com" aria-label="Company domain" />
+      <button id="run-btn" type="submit">Run agent</button>
+    </form>
+    <div id="examples" class="examples" hidden>
+      <span class="examples-label">or try a cached example:</span>
+      <span id="example-buttons"></span>
+    </div>
+
+    <section id="pipeline" class="pipeline" hidden aria-live="polite">
+      <div class="stage" data-stage="fetch">
+        <span class="stage-dot"></span>
+        <span class="stage-name">Fetch &amp; read</span>
+        <span class="stage-detail"></span>
+      </div>
+      <div class="stage" data-stage="research">
+        <span class="stage-dot"></span>
+        <span class="stage-name">Research</span>
+        <span class="stage-detail"></span>
+      </div>
+      <div class="stage" data-stage="score">
+        <span class="stage-dot"></span>
+        <span class="stage-name">ICP scoring</span>
+        <span class="stage-detail"></span>
+      </div>
+      <div class="stage" data-stage="opener">
+        <span class="stage-dot"></span>
+        <span class="stage-name">Opener draft</span>
+        <span class="stage-detail"></span>
+      </div>
+    </section>
+
+    <section id="error-box" class="error-box" hidden></section>
+
+    <section id="result" class="result" hidden>
+      <div class="result-head">
+        <div>
+          <p class="result-company" id="r-company"></p>
+          <p class="result-badges" id="r-badges"></p>
+        </div>
+        <div class="score" id="r-score-wrap">
+          <span class="score-num" id="r-score"></span>
+          <span class="score-label">ICP fit</span>
+        </div>
+      </div>
+
+      <div class="block" id="r-reasons-block">
+        <p class="block-label">Why this score</p>
+        <ul class="reasons" id="r-reasons"></ul>
+      </div>
+
+      <div class="block" id="r-opener-block">
+        <p class="block-label">Cold-email opener</p>
+        <blockquote class="opener" id="r-opener"></blockquote>
+        <ul class="claims" id="r-claims"></ul>
+      </div>
+
+      <div class="block" id="r-sources-block">
+        <p class="block-label">Sources</p>
+        <ul class="sources" id="r-sources"></ul>
+      </div>
+
+      <p class="notes" id="r-notes"></p>
+
+      <div class="meta" id="r-meta"></div>
+    </section>
+
+    <footer class="foot">
+      <p>
+        Runs are rate-limited (a few per visitor per hour) with a global daily budget; when
+        the cap is hit the demo serves cached examples. Results are cached for 24h per domain.
+        Built with the Anthropic API (Claude Sonnet), serverless functions, and Redis.
+        <a href="/">About me &rarr;</a>
+      </p>
+    </footer>
+  </main>
+  <script src="demo.js"></script>
+</body>
+</html>
