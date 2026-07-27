@@ -1,6 +1,9 @@
 "use strict";
 
 (function () {
+  // Empty apiBase means same-origin (/api/run) — correct on the Vercel
+  // deployment. On ljr.dev (GitHub Pages) the meta tag must point at the
+  // Vercel origin. Localhost defaults to `vercel dev` / the mock on :3000.
   var apiBase = (function () {
     var meta = document.querySelector('meta[name="demo-api-base"]');
     var configured = meta && meta.content ? meta.content.replace(/\/$/, "") : "";
@@ -50,10 +53,6 @@
     var domain = clientNormalize(input.value);
     if (!domain) {
       showError("invalid_domain", "That doesn't look like a valid company domain (try something like acme.com).");
-      return;
-    }
-    if (!apiBase) {
-      showError("upstream", "The demo API isn't configured yet. Try a cached example below.");
       return;
     }
     run(domain);
