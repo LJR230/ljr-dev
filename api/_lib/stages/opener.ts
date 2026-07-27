@@ -1,7 +1,7 @@
-import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic.ts";
-import type { CompanyProfile } from "./fetch.ts";
-import type { ResearchResult } from "./research.ts";
-import type { ScoreResult } from "./score.ts";
+import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic";
+import type { CompanyProfile } from "./fetch";
+import type { ResearchResult } from "./research";
+import type { ScoreResult } from "./score";
 
 export interface OpenerResult {
   opener: string;

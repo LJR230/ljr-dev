@@ -1,7 +1,7 @@
-import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic.ts";
-import { ICP } from "../../../config/icp.ts";
-import type { CompanyProfile } from "./fetch.ts";
-import type { ResearchResult } from "./research.ts";
+import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic";
+import { ICP } from "../../../config/icp";
+import type { CompanyProfile } from "./fetch";
+import type { ResearchResult } from "./research";
 
 export interface ScoreResult {
   score: number;

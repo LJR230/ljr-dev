@@ -1,5 +1,5 @@
-import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic.ts";
-import type { CompanyProfile } from "./fetch.ts";
+import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic";
+import type { CompanyProfile } from "./fetch";
 
 export interface ResearchResult {
   summary: string;
