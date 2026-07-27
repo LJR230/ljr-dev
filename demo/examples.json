@@ -1,3 +1,229 @@
 {
-  "examples": []
+  "examples": [
+    {
+      "domain": "commonroom.io",
+      "company_name": "Common Room",
+      "score": 78,
+      "reasons": [
+        {
+          "claim": "Common Room is a US-based B2B SaaS company within the target employee range.",
+          "evidence": "approximately 108 employees as of 2026; HQ in Seattle",
+          "source_url": "https://tracxn.com/d/companies/common-room/__bDBoNbkHzo2HuTox78wQybiGSJ06-NKuv4c9lc6SCu4"
+        },
+        {
+          "claim": "The company has an active GTM/revenue hiring motion, a strong ICP signal.",
+          "evidence": "Current open roles include a Commercial Account Executive, Growth Account Manager, and Solutions Consultant; hired product marketing lead in March 2025.",
+          "source_url": "https://leadiq.com/c/common-room/606b2e49f75c47a09198a89b"
+        },
+        {
+          "claim": "Common Room operates in the revenue-tooling ecosystem and targets sales/marketing buyers, aligning with the buyer persona, though it's a vendor rather than confirmed buyer of similar tools.",
+          "evidence": "Positioning against Clay and ZoomInfo, selling to RevOps, Sales, Marketing teams at mid-market/enterprise B2B companies.",
+          "source_url": "https://www.commonroom.io/about/"
+        }
+      ],
+      "opener": "Saw you're hiring a Commercial Account Executive and Growth Account Manager right now, which usually means your reps are juggling more pipeline than your current stack can cleanly support. Common Room's own customers see the same growing pains before they consolidate signals and enrichment into one system — Semgrep's sales development team reported 74% more pipeline in a single quarter after doing that. Worth a quick conversation on how your team is handling buyer signal tracking as headcount grows?",
+      "claims": [
+        {
+          "text": "Current open roles include a Commercial Account Executive and a Growth Account Manager",
+          "source_url": "https://leadiq.com/c/common-room/606b2e49f75c47a09198a89b"
+        },
+        {
+          "text": "Customer example: Semgrep's Director of Sales Development reported 74% more pipeline in one quarter after adopting Common Room.",
+          "source_url": "https://www.commonroom.io/"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.commonroom.io/",
+          "title": "https://www.commonroom.io/"
+        },
+        {
+          "url": "https://www.commonroom.io/careers/",
+          "title": "https://www.commonroom.io/careers/"
+        },
+        {
+          "url": "https://www.commonroom.io/about/",
+          "title": "https://www.commonroom.io/about/"
+        },
+        {
+          "url": "https://leadiq.com/c/common-room/606b2e49f75c47a09198a89b",
+          "title": "Common Room Company Overview, Contact Details & Competitors | LeadIQ"
+        },
+        {
+          "url": "https://tracxn.com/d/companies/common-room/__bDBoNbkHzo2HuTox78wQybiGSJ06-NKuv4c9lc6SCu4",
+          "title": "Common Room - 2026 Company Profile, Team, Funding & Competitors - Tracxn"
+        },
+        {
+          "url": "https://tracxn.com/d/companies/common-room/__bDBoNbkHzo2HuTox78wQybiGSJ06-NKuv4c9lc6SCu4/funding-and-investors",
+          "title": "Common Room - 2025 Funding Rounds & List of Investors - Tracxn"
+        },
+        {
+          "url": "https://getlatka.com/companies/commonroom.io",
+          "title": "Common Room Revenue 2024: $15M Est. ARR, $45M Valuation"
+        },
+        {
+          "url": "https://www.commonroom.io/blog/forbes-announces-52-million-in-funding/",
+          "title": "Editor's Pick: Forbes Announces Common Room Funding ..."
+        },
+        {
+          "url": "https://www.geekwire.com/2022/fueled-by-52m-in-funding-common-room-unveils-intelligent-community-growth-platform/",
+          "title": "Fueled by $52M in funding, Common Room unveils 'intelligent community growth platform' – GeekWire"
+        },
+        {
+          "url": "https://www.forbes.com/sites/alexkonrad/2021/03/31/common-room-launches-community-software-with-52-million-funding/",
+          "title": "Common Room, Community Management Startup Used By Confluent, Figma And Notion, Launches With $52 Million In Funding"
+        },
+        {
+          "url": "https://pitchbook.com/profiles/company/437780-35",
+          "title": "Common Room 2026 Company Profile: Valuation, Funding & Investors | PitchBook"
+        }
+      ],
+      "cost_usd": 0,
+      "tokens_in": 37897,
+      "tokens_out": 2524,
+      "searches": 2,
+      "cached": true,
+      "partial": false,
+      "notes": [],
+      "generated_at": "2026-07-27T21:47:00.440Z"
+    },
+    {
+      "domain": "clay.com",
+      "company_name": "Clay",
+      "score": 35,
+      "reasons": [
+        {
+          "claim": "Clay is a B2B SaaS company selling to sales/marketing (GTM) teams, matching the industry and buyer criteria.",
+          "evidence": "Clay is a go-to-market (GTM) platform... trusted by more than 500,000 leading GTM teams of all sizes.",
+          "source_url": "https://www.clay.com/"
+        },
+        {
+          "claim": "No employee count evidence is provided, and available funding/valuation data ($100M ARR, $3.1-5B valuation) strongly suggests a company far larger than the 11-200 employee target range.",
+          "evidence": "Clay Revenue 2025: $100M ARR, $5B Valuation; Clay Raises $100 Million In Series C Funding Led By CapitalG at $3.1B valuation.",
+          "source_url": "https://getlatka.com/companies/clay"
+        },
+        {
+          "claim": "Clay sells to GTM teams 'of all sizes' from startups to large enterprises (Anthropic, OpenAI, Canva), not specifically the 11-200 employee segment, weakening the size fit.",
+          "evidence": "Customers highlighted include Figma, Saviynt, A-LIGN, Pendo, Pump, Anthropic, Mistral AI, OpenAI, Canva, and Vanta.",
+          "source_url": "https://www.clay.com/"
+        }
+      ],
+      "opener": "Saw Clay just closed a $100M Series C at a $3.1B valuation, and you're already working with 500,000+ GTM teams across companies like Figma, Canva, and Anthropic. With that scale of usage, I imagine your team is deep into thinking about how enrichment and AI agent workflows hold up as more orgs pile on. Worth a quick conversation?",
+      "claims": [
+        {
+          "text": "Clay closed a $100M Series C at a $3.1B valuation.",
+          "source_url": "https://www.thesaasnews.com/news/clay-raises-100-million-in-series-c-at-3-1b-valuation/"
+        },
+        {
+          "text": "Clay is trusted by more than 500,000 leading GTM teams of all sizes.",
+          "source_url": "https://www.clay.com/"
+        },
+        {
+          "text": "Customers highlighted include Figma, Canva, and Anthropic.",
+          "source_url": "https://www.clay.com/"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.clay.com/",
+          "title": "https://www.clay.com/"
+        },
+        {
+          "url": "https://www.clay.com/about",
+          "title": "https://www.clay.com/about"
+        },
+        {
+          "url": "https://www.clay.com/careers",
+          "title": "https://www.clay.com/careers"
+        },
+        {
+          "url": "https://getlatka.com/companies/clay",
+          "title": "Clay Revenue 2025: $100M ARR, $5B Valuation"
+        },
+        {
+          "url": "https://tracxn.com/d/companies/clay/__4klxbcdinU3gElTPA0raH745Gx10_2_NSf7UzmgALBg",
+          "title": "Clay - 2026 Company Profile, Team, Funding & Competitors - Tracxn"
+        },
+        {
+          "url": "https://news.crunchbase.com/venture/ai-powered-gtm-startup-clay-valuation-doubles-capitalg/",
+          "title": "AI-Powered Sales Automation Startup Clay More Than Doubles Valuation To $3.1B"
+        },
+        {
+          "url": "https://www.superbcrew.com/clay-raises-100-million-in-series-c-funding-led-by-capitalg/",
+          "title": "Clay Raises $100 Million In Series C Funding Led By CapitalG - SuperbCrew"
+        },
+        {
+          "url": "https://www.builtinnyc.com/articles/clay-secures-100m-20250808",
+          "title": "Clay Secures $100M to Expand AI-Powered GTM Engineering | Built In NYC"
+        },
+        {
+          "url": "https://www.thesaasnews.com/news/clay-raises-100-million-in-series-c-at-3-1b-valuation/",
+          "title": "Clay Secures $100M Series C at $3.1B Valuation"
+        },
+        {
+          "url": "https://www.clay.com/dossier/clay-funding",
+          "title": "How Much Did Clay Raise? Funding & Key Investors | Clay"
+        },
+        {
+          "url": "https://www.businesswire.com/news/home/20250805719448/en/AI-GTM-Leader-Clay-Raises-$100M-Series-C-to-Fuel-GTM-Engineering-Roles-Industrywide",
+          "title": "AI GTM Leader Clay Raises $100M Series C to Fuel GTM Engineering Roles Industrywide"
+        }
+      ],
+      "cost_usd": 0.3408,
+      "tokens_in": 94286,
+      "tokens_out": 2531,
+      "searches": 2,
+      "cached": false,
+      "partial": false,
+      "notes": [],
+      "generated_at": "2026-07-27T21:48:57.814Z"
+    },
+    {
+      "domain": "ramp.com",
+      "company_name": "Ramp",
+      "score": 15,
+      "reasons": [
+        {
+          "claim": "Ramp is a finance/spend management platform, not B2B SaaS sold to sales or marketing teams as required by the buyer criterion.",
+          "evidence": "Positions itself as an all-in-one alternative to point solutions like Brex, Bill.com, Concur, and Navan, targeting finance and accounting teams.",
+          "source_url": "https://ramp.com/"
+        },
+        {
+          "claim": "Company scale (70,000+ businesses served, enterprise customers like Shopify) suggests Ramp itself is far larger than the 11-200 employee target and its target customers are mid-market to enterprise, not the ICP's smaller buyer segment.",
+          "evidence": "Trusted by 70,000+ businesses including Notion, Shopify, Webflow, Eventbrite, Poshmark, and Quora; targets mid-market to enterprise companies.",
+          "source_url": "https://ramp.com/"
+        },
+        {
+          "claim": "No evidence found regarding Ramp's own employee count, funding, GTM hiring, or geography specifics, and no research findings were retrievable to confirm ICP alignment.",
+          "evidence": "Research findings state the search tool limit was exceeded and no verified data was retrieved.",
+          "source_url": "https://ramp.com/"
+        }
+      ],
+      "opener": "Noticed Ramp's customers like Glossier are getting 90% of transactions auto-coded by your AI — that kind of automation is exactly the kind of thing worth highlighting to prospects evaluating spend platforms. With 70,000+ businesses on Ramp already, I'm guessing your team is fielding a lot of inbound comparisons against Brex and Bill.com. Worth a quick chat on how we could help there?",
+      "claims": [
+        {
+          "text": "Glossier has 90% of transactions auto-coded by Ramp's AI.",
+          "source_url": "https://ramp.com/"
+        },
+        {
+          "text": "Trusted by 70,000+ businesses including Notion, Shopify, Webflow, Eventbrite, Poshmark, and Quora.",
+          "source_url": "https://ramp.com/"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://ramp.com/",
+          "title": "https://ramp.com/"
+        }
+      ],
+      "cost_usd": 0,
+      "tokens_in": 71022,
+      "tokens_out": 2535,
+      "searches": 0,
+      "cached": true,
+      "partial": false,
+      "notes": [],
+      "generated_at": "2026-07-27T21:45:08.870Z"
+    }
+  ]
 }
