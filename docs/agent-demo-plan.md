@@ -5,7 +5,7 @@ visible agent pipeline researches the company, scores it against a sample ICP, a
 drafts a personalized cold-email opener with cited sources and the real dollar cost
 of the run.
 
-Status: **awaiting approval — no implementation yet.**
+Status: **approved; Phases 1-3 implemented and verified locally (typecheck clean, UI tested against a mock API). Phase 4 deploy verification pending owner setup (Vercel project, Upstash DB, env vars, git push auth). The demo page's `demo-api-base` meta tag must be set to the Vercel URL once created.**
 
 ---
 
@@ -209,27 +209,27 @@ dev `typescript`, `@types/node`, `vercel`.
 ## 8. Implementation plan
 
 Phase 0 — prerequisites (owner)
-- [ ] Approve this plan, hosting choice, and dependency list
+- [x] Approve this plan, hosting choice, and dependency list
 - [ ] Fix git push auth; create Vercel project + Upstash DB; set env vars
 
 Phase 1 — scaffolding
-- [ ] `package.json`, `tsconfig.json`, `vercel.json`; `npm run build` = `tsc --noEmit`
-- [ ] `.gitignore` additions (`node_modules`, `.env*`, `.vercel`)
-- [ ] `config/icp.ts`, pricing table, env parsing (zod-validated)
+- [x] `package.json`, `tsconfig.json`, `vercel.json`; `npm run build` = `tsc --noEmit`
+- [x] `.gitignore` additions (`node_modules`, `.env*`, `.vercel`)
+- [x] `config/icp.ts`, pricing table, env parsing (zod-validated)
 
 Phase 2 — backend pipeline
-- [ ] `domain.ts`: normalization, validation, SSRF guards (+ unit-testable pure functions)
-- [ ] Stage 1 fetch & read (fetch hardening + extraction call)
-- [ ] Stage 2 research (web search tool, citation collection)
-- [ ] Stage 3 score, Stage 4 opener (structured outputs)
-- [ ] `pipeline.ts` orchestration: SSE events, cost tally, 60s abort, partial results
-- [ ] `store.ts`: cache, rate limit, daily cap, run log
-- [ ] `run.ts` endpoint: CORS, method/body validation, wiring
+- [x] `domain.ts`: normalization, validation, SSRF guards (+ unit-testable pure functions)
+- [x] Stage 1 fetch & read (fetch hardening + extraction call)
+- [x] Stage 2 research (web search tool, citation collection)
+- [x] Stage 3 score, Stage 4 opener (structured outputs)
+- [x] `pipeline.ts` orchestration: SSE events, cost tally, 60s abort, partial results
+- [x] `store.ts`: cache, rate limit, daily cap, run log
+- [x] `run.ts` endpoint: CORS, method/body validation, wiring
 
 Phase 3 — frontend
-- [ ] `demo/` page: input, live stage view, result card, error states, mobile
-- [ ] `examples.json` seeding script + "try an example" flow
-- [ ] "Live demo" link in the main site template
+- [x] `demo/` page: input, live stage view, result card, error states, mobile
+- [x] `examples.json` seeding script + "try an example" flow
+- [x] "Live demo" link in the main site template
 
 Phase 4 — verification & ship
 - [ ] `npm run build` clean; local end-to-end via `vercel dev` on real domains
