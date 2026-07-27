@@ -5,7 +5,7 @@ visible agent pipeline researches the company, scores it against a sample ICP, a
 drafts a personalized cold-email opener with cited sources and the real dollar cost
 of the run.
 
-Status: **approved; Phases 1-3 implemented and verified locally (typecheck clean, UI tested against a mock API). Phase 4 deploy verification pending owner setup (Vercel project, Upstash DB, env vars, git push auth). The demo page's `demo-api-base` meta tag must be set to the Vercel URL once created.**
+Status: **shipped.** Live at https://ljr.dev/demo/ (static via GitHub Pages) + https://ljr-dev-pi.vercel.app (API + same-origin copy). Verified in production: full runs (commonroom.io 78, clay.com 35, ramp.com 15), cache hits, rate limiting, timeout/over-budget partials, invalid-domain rejection, CORS from ljr.dev, mobile layout, no console errors.
 
 ---
 
@@ -210,7 +210,7 @@ dev `typescript`, `@types/node`, `vercel`.
 
 Phase 0 — prerequisites (owner)
 - [x] Approve this plan, hosting choice, and dependency list
-- [ ] Fix git push auth; create Vercel project + Upstash DB; set env vars
+- [x] Fix git push auth; create Vercel project + Upstash DB; set env vars
 
 Phase 1 — scaffolding
 - [x] `package.json`, `tsconfig.json`, `vercel.json`; `npm run build` = `tsc --noEmit`
@@ -232,11 +232,11 @@ Phase 3 — frontend
 - [x] "Live demo" link in the main site template
 
 Phase 4 — verification & ship
-- [ ] `npm run build` clean; local end-to-end via `vercel dev` on real domains
-- [ ] Verify: rate limit, daily-cap mode, cache hit, timeout/partial path, bad domains, mobile layout, no console errors
-- [ ] Seed examples, update this doc's §7 as the final README section
-- [ ] Merge `agent-demo` → `main`, push, verify on the deployed site
-- [ ] Report tradeoffs + hardening list
+- [x] `npm run build` clean; local end-to-end via `vercel dev` on real domains
+- [x] Verify: rate limit, daily-cap mode, cache hit, timeout/partial path, bad domains, mobile layout, no console errors
+- [x] Seed examples, update this doc's §7 as the final README section
+- [x] Merge `agent-demo` → `main`, push, verify on the deployed site
+- [x] Report tradeoffs + hardening list
 
 ## 9. Known tradeoffs (upfront)
 
@@ -248,3 +248,20 @@ Phase 4 — verification & ship
   Haiku 4.5 (~3× cheaper) at some quality cost — not done by default, flag if
   cost review says otherwise.
 - Cached results may be up to 24h stale; the result card will show "cached" state.
+
+## 10. Post-launch notes (verified in production)
+
+- Run cost observed: $0.06-0.25 per fresh run; per-run cap raised to $0.40.
+  Over-budget and timeout now degrade to partial results instead of erroring.
+- Research stage is capped at 40s (run cap 75s); heavy domains (apollo.io)
+  can still skip research and degrade gracefully.
+- Vercel project deploys via CLI (`npx vercel deploy --prod`), not git
+  integration — pushes to `main` update ljr.dev (GitHub Pages) but NOT the
+  API. Either connect the repo in Vercel's dashboard (Settings -> Git) or
+  keep deploying via CLI after API changes.
+- `vercel env pull` masks sensitive values as `[SENSITIVE]` — local runs
+  against production credentials aren't possible; test through the API.
+- Additional hardening candidates: web-search count sometimes reports 0
+  (usage field inconsistency; slightly understates displayed cost), research
+  source extraction missed result blocks on one run (ramp.com example shows
+  1 source), examples could be re-seeded periodically for freshness.
