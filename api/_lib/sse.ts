@@ -12,8 +12,10 @@ export type ErrorCode =
 export class SseWriter {
   private heartbeat: NodeJS.Timeout;
   private closed = false;
+  private res: ServerResponse;
 
-  constructor(private res: ServerResponse) {
+  constructor(res: ServerResponse) {
+    this.res = res;
     res.writeHead(200, {
       "content-type": "text/event-stream; charset=utf-8",
       "cache-control": "no-cache, no-transform",
