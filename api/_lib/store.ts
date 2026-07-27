@@ -73,13 +73,13 @@ export async function addDailySpend(usd: number): Promise<void> {
 export async function getCachedResult(domain: string): Promise<unknown | null> {
   const r = getRedis();
   if (!r) return null;
-  return await r.get(`demo:result:${domain}`);
+  return await r.get(`demo:result:v2:${domain}`);
 }
 
 export async function setCachedResult(domain: string, result: unknown): Promise<void> {
   const r = getRedis();
   if (!r) return;
-  await r.set(`demo:result:${domain}`, JSON.stringify(result), { ex: CACHE_TTL_S });
+  await r.set(`demo:result:v2:${domain}`, JSON.stringify(result), { ex: CACHE_TTL_S });
 }
 
 export interface RunLogEntry {

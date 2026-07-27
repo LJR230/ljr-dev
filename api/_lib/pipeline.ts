@@ -122,8 +122,10 @@ export async function runPipeline(domain: string, sse: SseWriter): Promise<RunRe
 
     // Stages 2-4 — degrade to partial.
     try {
+      // Cap research at 30s so a slow search can't consume the whole run.
+      const researchSignal = AbortSignal.any([abort.signal, AbortSignal.timeout(30000)]);
       research = await stage("research", (d) =>
-        runResearchStage(domain, fetched!.profile, cost, abort.signal, d),
+        runResearchStage(domain, fetched!.profile, cost, researchSignal, d),
       );
     } catch (err) {
       console.error("[pipeline] research stage failed:", err);

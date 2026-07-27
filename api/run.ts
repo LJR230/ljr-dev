@@ -119,7 +119,8 @@ export default async function handler(
     sse.end();
 
     await Promise.allSettled([
-      setCachedResult(domain, result),
+      // Don't cache partials: a retry may produce the full result.
+      ...(result.partial ? [] : [setCachedResult(domain, result)]),
       addDailySpend(result.cost_usd),
       logRun(runLog(domain, startedAt, result, result.partial ? "partial" : "ok", false)),
     ]);
