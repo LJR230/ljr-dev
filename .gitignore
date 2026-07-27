@@ -1,2 +1,6 @@
 .DS_Store
 Jabir Portfolio.html
+node_modules/
+.env
+.env.*
+.vercel/
