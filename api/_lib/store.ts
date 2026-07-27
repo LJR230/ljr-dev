@@ -5,7 +5,7 @@ import { Ratelimit } from "@upstash/ratelimit";
 const RUNS_PER_HOUR = Number(process.env.RATE_LIMIT_RUNS_PER_HOUR ?? 3);
 const CACHE_TTL_S = Number(process.env.CACHE_TTL_HOURS ?? 24) * 3600;
 export const DAILY_BUDGET_USD = Number(process.env.DAILY_BUDGET_USD ?? 5);
-export const PER_RUN_BUDGET_USD = Number(process.env.PER_RUN_BUDGET_USD ?? 0.25);
+export const PER_RUN_BUDGET_USD = Number(process.env.PER_RUN_BUDGET_USD ?? 0.4);
 
 let redis: Redis | null | undefined;
 let limiter: Ratelimit | null | undefined;

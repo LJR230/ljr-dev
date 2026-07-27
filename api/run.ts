@@ -131,7 +131,14 @@ export default async function handler(
     sse.error(code, message);
     sse.end();
     console.error("[run] failed", domain, err);
-    await logRun(runLog(domain, startedAt, null, `error:${code}`, false));
+    const spent = err instanceof PipelineError ? err.costUsd : 0;
+    await Promise.allSettled([
+      addDailySpend(spent),
+      logRun({
+        ...runLog(domain, startedAt, null, `error:${code}`, false),
+        cost_usd: Number(spent.toFixed(4)),
+      }),
+    ]);
   }
 }
 

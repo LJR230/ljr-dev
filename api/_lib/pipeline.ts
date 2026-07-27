@@ -36,10 +36,12 @@ export type PipelineErrorCode =
 
 export class PipelineError extends Error {
   code: PipelineErrorCode;
+  costUsd: number;
 
-  constructor(code: PipelineErrorCode, message: string) {
+  constructor(code: PipelineErrorCode, message: string, costUsd = 0) {
     super(message);
     this.code = code;
+    this.costUsd = costUsd;
   }
 }
 
@@ -72,11 +74,14 @@ export async function runPipeline(domain: string, sse: SseWriter): Promise<RunRe
 
   const timedOut = (): boolean => abort.signal.aborted;
 
-  const checkBudget = (): void => {
-    if (cost.costUsd > PER_RUN_BUDGET_USD) {
+  let budgetStopped = false;
+  const overBudget = (): boolean => {
+    if (!budgetStopped && cost.costUsd > PER_RUN_BUDGET_USD) {
+      budgetStopped = true;
       abort.abort(new Error("over budget"));
-      throw new PipelineError("over_budget", "Run exceeded its cost budget");
+      notes.push("The run hit its cost budget; showing what completed.");
     }
+    return budgetStopped;
   };
 
   const stage = async <T>(
@@ -95,7 +100,6 @@ export async function runPipeline(domain: string, sse: SseWriter): Promise<RunRe
         cost_usd: Number((cost.costUsd - before.usd).toFixed(4)),
       },
     });
-    checkBudget();
     return result;
   };
 
@@ -106,13 +110,15 @@ export async function runPipeline(domain: string, sse: SseWriter): Promise<RunRe
         runFetchStage(domain, cost, abort.signal, d),
       );
     } catch (err) {
-      if (timedOut()) throw new PipelineError("timeout", "Run timed out");
+      console.error("[pipeline] fetch stage failed:", err);
+      if (timedOut()) throw new PipelineError("timeout", "Run timed out", cost.costUsd);
       if (err instanceof PipelineError) throw err;
       if (err instanceof FetchGuardError) {
         throw new PipelineError(err.code, err.message);
       }
-      throw new PipelineError("upstream", "Company site analysis failed");
+      throw new PipelineError("upstream", "Company site analysis failed", cost.costUsd);
     }
+    if (overBudget()) return finish();
 
     // Stages 2-4 — degrade to partial.
     try {
@@ -120,28 +126,33 @@ export async function runPipeline(domain: string, sse: SseWriter): Promise<RunRe
         runResearchStage(domain, fetched!.profile, cost, abort.signal, d),
       );
     } catch (err) {
+      console.error("[pipeline] research stage failed:", err);
       if (err instanceof PipelineError) throw err;
       if (timedOut()) return finish();
       notes.push("Web research was unavailable for this run; results use website evidence only.");
       sse.event("stage_done", { stage: "research", failed: true });
     }
+    if (overBudget()) return finish();
 
     try {
       score = await stage("score", (d) =>
         runScoreStage(domain, fetched!.profile, research, cost, abort.signal, d),
       );
     } catch (err) {
+      console.error("[pipeline] score stage failed:", err);
       if (err instanceof PipelineError) throw err;
       if (timedOut()) return finish();
       notes.push("ICP scoring failed for this run.");
       sse.event("stage_done", { stage: "score", failed: true });
     }
+    if (overBudget()) return finish();
 
     try {
       opener = await stage("opener", (d) =>
         runOpenerStage(domain, fetched!.profile, research, score, cost, abort.signal, d),
       );
     } catch (err) {
+      console.error("[pipeline] opener stage failed:", err);
       if (err instanceof PipelineError) throw err;
       if (timedOut()) return finish();
       notes.push("Opener drafting failed for this run.");
@@ -154,9 +165,9 @@ export async function runPipeline(domain: string, sse: SseWriter): Promise<RunRe
   }
 
   function finish(): RunResult {
-    if (!fetched) throw new PipelineError("timeout", "Run timed out before any results");
+    if (!fetched) throw new PipelineError("timeout", "Run timed out before any results", cost.costUsd);
     const partial = !(research && score && opener);
-    if (timedOut() && partial) {
+    if (timedOut() && partial && !budgetStopped) {
       notes.push("The run hit the 60s time limit; showing what completed.");
     }
     const sources = new Map<string, string>();
