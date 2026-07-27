@@ -20,7 +20,7 @@ export async function runResearchStage(
       model: MODEL,
       max_tokens: 1500,
       output_config: { effort: "low" },
-      tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 3 }],
+      tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 2 }],
       system:
         "You research companies for a sales-qualification pipeline. Search for recent, " +
         "concrete signals only. Report only what the search results support; never invent. " +

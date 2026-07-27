@@ -101,7 +101,7 @@ not deep reasoning.
    One Sonnet call with structured output → `{ what_they_do, size_signals,
    positioning, icp_relevant_facts[] }`, each fact tagged with its source URL.
 2. **research** — One Sonnet call with the `web_search_20260209` server tool
-   (`max_uses: 3`) asking for recent news, funding, or hiring signals. Citations
+   (`max_uses: 2`) asking for recent news, funding, or hiring signals. Citations
    from the search result blocks become the source list. Structured summary out.
 3. **score** — One Sonnet call: ICP from `config/icp.ts` + stage 1/2 outputs →
    structured `{ score: 0-100, reasons: [{ claim, evidence, source_url }] }`
@@ -148,7 +148,7 @@ done          {}
 
 | Layer | Mechanism |
 |---|---|
-| Per-stage | `max_tokens` caps per call; `max_uses: 3` on web search |
+| Per-stage | `max_tokens` caps per call; `max_uses: 2` on web search |
 | Per-run | Running cost tally; hard abort if projected > `PER_RUN_BUDGET_USD` (default $0.25) |
 | Per-IP | 3 runs/hour (sliding window, `@upstash/ratelimit`, keyed on salted SHA-256 of IP) |
 | Global daily | Redis counter of $ spent per UTC day; over `DAILY_BUDGET_USD` (default $5) → API returns `demo_paused`, client switches to cached-examples-only mode |
