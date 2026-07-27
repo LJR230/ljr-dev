@@ -1,5 +1,5 @@
-import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic";
-import { htmlToText, safeFetch, FetchGuardError } from "../domain";
+import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic.js";
+import { htmlToText, safeFetch, FetchGuardError } from "../domain.js";
 
 export interface CompanyProfile {
   company_name: string;

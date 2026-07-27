@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { normalizeDomain } from "./_lib/domain";
-import { SseWriter } from "./_lib/sse";
-import { runPipeline, PipelineError, type RunResult } from "./_lib/pipeline";
+import { normalizeDomain } from "./_lib/domain.js";
+import { SseWriter } from "./_lib/sse.js";
+import { runPipeline, PipelineError, type RunResult } from "./_lib/pipeline.js";
 import {
   addDailySpend,
   checkRateLimit,
@@ -10,7 +10,7 @@ import {
   isDailyBudgetExceeded,
   logRun,
   setCachedResult,
-} from "./_lib/store";
+} from "./_lib/store.js";
 
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN ?? "https://ljr.dev";
 const LOCAL_ORIGINS = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;

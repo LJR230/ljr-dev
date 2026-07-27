@@ -1,7 +1,7 @@
-import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic";
-import type { CompanyProfile } from "./fetch";
-import type { ResearchResult } from "./research";
-import type { ScoreResult } from "./score";
+import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic.js";
+import type { CompanyProfile } from "./fetch.js";
+import type { ResearchResult } from "./research.js";
+import type { ScoreResult } from "./score.js";
 
 export interface OpenerResult {
   opener: string;

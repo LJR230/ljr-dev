@@ -1,11 +1,11 @@
-import { CostTracker } from "./anthropic";
-import { FetchGuardError } from "./domain";
-import type { SseWriter } from "./sse";
-import { PER_RUN_BUDGET_USD } from "./store";
-import { runFetchStage, type FetchStageResult } from "./stages/fetch";
-import { runResearchStage, type ResearchResult } from "./stages/research";
-import { runScoreStage, type ScoreResult } from "./stages/score";
-import { runOpenerStage, type OpenerResult } from "./stages/opener";
+import { CostTracker } from "./anthropic.js";
+import { FetchGuardError } from "./domain.js";
+import type { SseWriter } from "./sse.js";
+import { PER_RUN_BUDGET_USD } from "./store.js";
+import { runFetchStage, type FetchStageResult } from "./stages/fetch.js";
+import { runResearchStage, type ResearchResult } from "./stages/research.js";
+import { runScoreStage, type ScoreResult } from "./stages/score.js";
+import { runOpenerStage, type OpenerResult } from "./stages/opener.js";
 
 const RUN_TIMEOUT_MS = 60000;
 

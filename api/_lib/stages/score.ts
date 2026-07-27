@@ -1,7 +1,7 @@
-import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic";
-import { ICP } from "../../../config/icp";
-import type { CompanyProfile } from "./fetch";
-import type { ResearchResult } from "./research";
+import { anthropic, MODEL, textOf, type CostTracker } from "../anthropic.js";
+import { ICP } from "../../../config/icp.js";
+import type { CompanyProfile } from "./fetch.js";
+import type { ResearchResult } from "./research.js";
 
 export interface ScoreResult {
   score: number;
