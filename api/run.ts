@@ -152,7 +152,7 @@ function publicMessage(err: PipelineError): string {
     case "over_budget":
       return "This run exceeded its cost budget and was stopped.";
     case "timeout":
-      return "The run hit the 60s time limit before producing results.";
+      return "The run hit its time limit before producing results.";
     default:
       return "Something went wrong running the pipeline.";
   }

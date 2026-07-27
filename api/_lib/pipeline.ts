@@ -7,7 +7,7 @@ import { runResearchStage, type ResearchResult } from "./stages/research.js";
 import { runScoreStage, type ScoreResult } from "./stages/score.js";
 import { runOpenerStage, type OpenerResult } from "./stages/opener.js";
 
-const RUN_TIMEOUT_MS = 60000;
+const RUN_TIMEOUT_MS = 75000;
 
 export interface RunResult {
   domain: string;
@@ -122,8 +122,8 @@ export async function runPipeline(domain: string, sse: SseWriter): Promise<RunRe
 
     // Stages 2-4 — degrade to partial.
     try {
-      // Cap research at 30s so a slow search can't consume the whole run.
-      const researchSignal = AbortSignal.any([abort.signal, AbortSignal.timeout(30000)]);
+      // Cap research at 40s so a slow search can't consume the whole run.
+      const researchSignal = AbortSignal.any([abort.signal, AbortSignal.timeout(40000)]);
       research = await stage("research", (d) =>
         runResearchStage(domain, fetched!.profile, cost, researchSignal, d),
       );
@@ -170,7 +170,7 @@ export async function runPipeline(domain: string, sse: SseWriter): Promise<RunRe
     if (!fetched) throw new PipelineError("timeout", "Run timed out before any results", cost.costUsd);
     const partial = !(research && score && opener);
     if (timedOut() && partial && !budgetStopped) {
-      notes.push("The run hit the 60s time limit; showing what completed.");
+      notes.push("The run hit its time limit; showing what completed.");
     }
     const sources = new Map<string, string>();
     for (const p of fetched.pages) sources.set(p, p);
