@@ -1,60 +1,86 @@
 {
   "examples": [
     {
-      "domain": "commonroom.io",
-      "company_name": "Common Room",
+      "domain": "lavender.ai",
+      "company_name": "Lavender",
       "score": 68,
       "reasons": [
         {
-          "claim": "Common Room is a B2B SaaS company selling to sales and marketing teams, matching industry and buyer criteria.",
-          "evidence": "Built for modern GTM teams (RevOps, Sales, Marketing) at mid-market and enterprise B2B companies.",
-          "source_url": "https://www.commonroom.io/about/",
+          "claim": "Lavender is a B2B SaaS company selling directly to sales teams, matching the industry and buyer criteria.",
+          "evidence": "Lavender is an AI-powered email coaching and sales agent platform targeting sales sellers, sales leaders, SDRs, AEs, and sales teams at B2B companies.",
+          "source_url": "https://lavender.ai/",
           "direction": "supports"
         },
         {
-          "claim": "Company shows strong funding and GTM revenue-tooling signals consistent with ICP strong signals.",
-          "evidence": "Raised over $50 million since founding in 2020, backed by Greylock, Index, and Madrona.",
-          "source_url": "https://www.commonroom.io/careers/",
+          "claim": "Recent funding signal supports GTM growth trajectory typical of ICP.",
+          "evidence": "Lavender lands $13.2M for its AI-powered email marketing engine.",
+          "source_url": "https://techcrunch.com/2023/02/02/lavender-lands-13-2m-for-its-ai-powered-email-marketing-engine/",
           "direction": "supports"
         },
         {
-          "claim": "Employee count is unknown but company appears to target and possibly be larger enterprise scale, not clearly within 11-200 employee band.",
-          "evidence": "Supports customer deployments from 50 to 1,000+ reps and positions itself for mid-market and enterprise, suggesting the company itself may exceed the target size band.",
-          "source_url": "https://www.commonroom.io/about/",
+          "claim": "Company size and headcount are unverified, leaving the employee-band criterion unknown.",
+          "evidence": "size_signals listed as 'unknown' in company profile and no headcount data found in research.",
+          "source_url": "https://lavender.ai/",
           "direction": "unknown"
         }
       ],
-      "opener": "Saw that Semgrep's SDR team used Common Room to build plays off product usage, web visits, and GitHub activity, and got 74% more pipeline in a single quarter. Given you're running GTM at a similar scale, curious if account prioritization and signal-based outreach are on your radar right now.",
+      "opener": "Saw that Lavender's coaching engine and Ora agent are built on analysis of billions of sales emails, and that reps at Deel, Twilio, and Clari use it to sharpen outbound. With that many teams relying on email as a channel, I'm curious how you're currently measuring rep-to-rep variance in reply rates. Worth a quick chat?",
       "claims": [
         {
-          "text": "Semgrep's Sales Development team cited 74% more pipeline in a quarter using Common Room for plays from product usage, web visits, and GitHub activity.",
-          "source_url": "https://www.commonroom.io/"
+          "text": "Lavender analyzes historic emails to understand what works, powering its email coach and Ora sales agent.",
+          "source_url": "https://lavender.ai/"
+        },
+        {
+          "text": "Customers include reps and leaders at companies like Deel, Paro.ai, Twilio, SaaStr, and Clari.",
+          "source_url": "https://lavender.ai/"
         }
       ],
       "sources": [
         {
-          "url": "https://www.commonroom.io/",
-          "title": "https://www.commonroom.io/"
+          "url": "https://lavender.ai/",
+          "title": "https://lavender.ai/"
         },
         {
-          "url": "https://www.commonroom.io/careers/",
-          "title": "https://www.commonroom.io/careers/"
+          "url": "https://tracxn.com/d/companies/lavender/__-LpYgewqzsLHxK9jhQ8QRo2kRwxcxEqkx96_XHdOVeE",
+          "title": "Lavender - 2025 Company Profile, Team, Funding & Competitors - Tracxn"
         },
         {
-          "url": "https://www.commonroom.io/about/",
-          "title": "https://www.commonroom.io/about/"
+          "url": "https://getlatka.com/companies/lavender.ai",
+          "title": "Lavender Revenue, Valuation & Funding History (2024)"
+        },
+        {
+          "url": "https://techcrunch.com/2023/02/02/lavender-lands-13-2m-for-its-ai-powered-email-marketing-engine/",
+          "title": "Lavender lands $13.2M for its AI-powered email marketing engine | TechCrunch"
+        },
+        {
+          "url": "https://www.crunchbase.com/organization/lavender-32b8",
+          "title": "Lavender - Crunchbase Company Profile & Funding"
+        },
+        {
+          "url": "https://mpost.io/lavender-raises-13-2m-to-accelerate-its-ai-powered-email-coaching-platform-for-sales-teams/",
+          "title": "Lavender Raises $13.2M to Accelerate its AI-powered Email Coaching Platform for Sales Teams | Metaverse Post"
+        },
+        {
+          "url": "https://www.thesaasnews.com/news/lavender-raises-13-2-million-in-funding",
+          "title": "Lavender Raises $13.2 Million in Funding | The SaaS News"
+        },
+        {
+          "url": "https://www.prnewswire.com/news-releases/lavender-announces-13-2-million-in-funding-to-create-email-intelligence-category-for-sales-teams-301737519.html",
+          "title": "Lavender Announces $13.2 Million in Funding to Create Email Intelligence Category for Sales Teams"
+        },
+        {
+          "url": "https://gzconsulting.org/2023/02/24/lavender-series-a/",
+          "title": "Lavender Series A – GZ Consulting"
         }
       ],
-      "cost_usd": 0.0522,
-      "tokens_in": 10940,
-      "tokens_out": 1291,
-      "searches": 0,
-      "cached": false,
-      "partial": true,
-      "notes": [
-        "Web research was unavailable for this run; results use website evidence only."
-      ],
-      "generated_at": "2026-07-27T23:34:31.819Z"
+      "cost_usd": 0,
+      "tokens_in": 75519,
+      "tokens_out": 2140,
+      "searches": 2,
+      "cached": true,
+      "partial": false,
+      "notes": [],
+      "generated_at": "2026-07-27T23:31:41.674Z"
     },
     {
       "domain": "clay.com",
@@ -141,11 +167,11 @@
           "title": "Investors Count"
         }
       ],
-      "cost_usd": 0.3078,
+      "cost_usd": 0,
       "tokens_in": 83010,
       "tokens_out": 2585,
       "searches": 2,
-      "cached": false,
+      "cached": true,
       "partial": false,
       "notes": [],
       "generated_at": "2026-07-27T23:35:17.656Z"
@@ -156,42 +182,77 @@
       "score": 15,
       "reasons": [
         {
-          "claim": "Ramp sells to finance teams, not sales or marketing teams, which is a clear buyer mismatch.",
-          "evidence": "Positions itself as an AI-first, all-in-one alternative to point solutions like Brex, Bill.com, Concur, and Navan, targeting finance teams",
+          "claim": "Ramp is fintech/spend-management software, not B2B SaaS sold to sales/marketing revenue teams.",
+          "evidence": "Ramp is an all-in-one spend management platform combining corporate cards, expense management, accounts payable, travel, procurement, banking, and accounting automation.",
           "source_url": "https://ramp.com/",
           "direction": "against"
         },
         {
-          "claim": "Ramp's product is spend management/fintech, not B2B SaaS sold to revenue teams, an industry/use-case mismatch.",
-          "evidence": "Ramp is an all-in-one spend management platform combining corporate cards, expense management, accounts payable, travel, procurement, and accounting automation",
+          "claim": "Ramp's buyer is finance and accounting teams, not sales or marketing.",
+          "evidence": "Sells to finance and accounting teams at mid-market and enterprise companies looking to consolidate spend management tools.",
           "source_url": "https://ramp.com/",
           "direction": "against"
         },
         {
-          "claim": "Company size is far outside the 11-200 employee band, serving large enterprises like Shopify and Notion.",
-          "evidence": "Trusted by 70,000+ businesses including Notion, Shopify, Webflow, Eventbrite, Poshmark, and Quora",
-          "source_url": "https://ramp.com/",
+          "claim": "Company is far larger than the 11-200 employee target band, evidenced by scale of customers and $32B valuation.",
+          "evidence": "Ramp hits $32B valuation with new $300M funding round; trusted by 70,000+ businesses.",
+          "source_url": "https://www.dakota.com/resources/blog/ramp-hits-32b-valuation-after-300m-raise-inside-the-biggest-spend-management-deal-of-2025",
           "direction": "against"
         }
       ],
-      "opener": "Given this is a poor ICP fit for our outreach, I'll pass on drafting a tailored opener here rather than force a generic pitch.",
-      "claims": [],
+      "opener": "Saw Ramp just hit a $32B valuation after doubling revenue and customers over the past year — that's a lot of new finance teams onboarding fast. Curious how you're handling qualification and outreach capacity as the sales org scales to match that growth.",
+      "claims": [
+        {
+          "text": "Ramp reached a $32 billion valuation, doubling revenue and customers in the past year.",
+          "source_url": "https://www.prnewswire.com/news-releases/ramp-reaches-32-billion-valuation-doubling-revenue-and-customers-in-past-year-302616510.html"
+        }
+      ],
       "sources": [
         {
           "url": "https://ramp.com/",
           "title": "https://ramp.com/"
+        },
+        {
+          "url": "https://www.dakota.com/resources/blog/ramp-hits-32b-valuation-after-300m-raise-inside-the-biggest-spend-management-deal-of-2025",
+          "title": "Ramp Hits $32B Valuation After $300M Raise: Inside the Biggest Spend-Management Deal of 2025"
+        },
+        {
+          "url": "https://www.prnewswire.com/news-releases/ramp-raises-200m-series-e-at-16b-valuation-as-companies-of-all-sizes-choose-ai-powered-finance-platform-302483377.html",
+          "title": "Ramp Raises $200M Series E at $16B Valuation as Companies of All Sizes Choose AI-Powered Finance Platform"
+        },
+        {
+          "url": "https://finovate.com/ramp-valued-at-32-billion-after-300-million-financing-round/",
+          "title": "Ramp Valued at $32 Billion After $300 Million Financing Round - Finovate"
+        },
+        {
+          "url": "https://techstartups.com/2025/11/17/ramp-hits-32b-valuation-with-new-300m-funding-round-as-investors-double-down-on-autonomous-finance/",
+          "title": "Ramp hits $32B valuation with new $300M funding round as investors double down on “autonomous finance” - Tech Startups"
+        },
+        {
+          "url": "https://ramp.com/press",
+          "title": "Press - Media Resources | Ramp"
+        },
+        {
+          "url": "https://www.prnewswire.com/news-releases/ramp-raises-500-million-at-22-5-billion-valuation-to-accelerate-ai-and-build-the-future-of-finance-302516953.html",
+          "title": "Ramp Raises $500 Million at $22.5 Billion Valuation to Accelerate AI and Build the Future of Finance"
+        },
+        {
+          "url": "https://www.prnewswire.com/news-releases/ramp-reaches-32-billion-valuation-doubling-revenue-and-customers-in-past-year-302616510.html",
+          "title": "Ramp Reaches $32 Billion Valuation, Doubling Revenue and Customers in Past Year"
+        },
+        {
+          "url": "https://techcrunch.com/2025/11/17/ramp-hits-32b-valuation-just-three-months-after-hitting-22-5b/",
+          "title": "Ramp hits $32B valuation, just 3 months after hitting $22.5B | TechCrunch"
         }
       ],
-      "cost_usd": 0.0452,
-      "tokens_in": 9355,
-      "tokens_out": 1140,
-      "searches": 0,
-      "cached": false,
-      "partial": true,
-      "notes": [
-        "Web research was unavailable for this run; results use website evidence only."
-      ],
-      "generated_at": "2026-07-27T23:36:13.080Z"
+      "cost_usd": 0,
+      "tokens_in": 83341,
+      "tokens_out": 2448,
+      "searches": 2,
+      "cached": true,
+      "partial": false,
+      "notes": [],
+      "generated_at": "2026-07-28T12:13:59.045Z"
     }
   ]
 }
