@@ -4,17 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Personal portfolio site for ljr.dev, served by GitHub Pages directly from `main` (CNAME → `ljr.dev`, `.nojekyll` disables Jekyll). There is no build system, package manager, linter, or test suite — pushing to `main` is the deployment.
+Personal portfolio site for ljr.dev, served by GitHub Pages directly from `main` (CNAME → `ljr.dev`, `.nojekyll` disables Jekyll). The static site has no build step. A Vercel project on the same repo additionally deploys the `api/` serverless functions (the live agent demo backend, TypeScript, `npm run build` = `tsc --noEmit`) and serves `demo/` as its output. Both GitHub Pages and Vercel auto-deploy on push, so pushing to `main` is the deployment.
 
 To preview locally: `python3 -m http.server` from the repo root, or open `index.html` in a browser (it requires JavaScript to render).
 
 ## Positioning
 
-The site's owner (Liam Jabir Roumila) is positioning himself as a **Go-to-Market (GTM) Engineer** — an engineer who builds revenue infrastructure: outbound/prospect automation, data enrichment pipelines, lead scoring, attribution, CRM and sales tooling. All copy changes should reinforce that identity rather than a generic "full-stack engineer" one. Concretely:
+The site's owner (Liam Jabir Roumila; "Liam Roumila" on the resume) is positioning himself for **Forward Deployed Engineer / Solutions Engineer** roles at AI/SaaS startups: an engineer who builds production integrations and deploys them into customers' environments and workflows (embed snippets on customers' own websites, webhook-driven event capture, live debugging in environments he didn't control). All copy changes should reinforce that identity rather than a generic "full-stack engineer" or GTM-engineer one. Concretely:
 
-- Lead with the GTM-engineering evidence: AuditorsIQ (automated prospect sourcing via Google Places API, enrichment pipelines, lead scoring/tiering, pipeline management) and Coachmake's web + mobile conversion attribution system and hands-on sales motion (closed nearly every coach personally, 30+ coaches).
-- Frame engineering skills in terms of revenue outcomes and metrics, not stack breadth. Don't invent tools, numbers, or experience not already in the copy — ask the owner for real details instead.
-- Titles, the availability line, and the About blurb should say "Go-to-Market Engineer" / GTM engineering, not "engineering & engineering-adjacent roles".
+- Lead with the customer-facing engineering evidence, in problem → what I built → outcome form: the Coachmake attribution system (embed snippet on coaches' own sites, custom UTM event schema, Adjust SDK, canonical click-ID join key, debugged live in customer-controlled environments), the Coachmake coach-facing AI recommendation engine (Claude Sonnet 4.5 proposing program changes that a coach approves or rejects; changes apply only on coach approval), the Python cuisine classifier, AuditorsIQ, and I Can Relate (contract work directly with a non-technical founder).
+- Coachmake is offline: present it as a case study, never link to it as a live site. AuditorsIQ (auditorsiq.com) is live and linkable.
+- Style rule: no em dashes anywhere in site copy; use commas, colons, or separate sentences. Don't invent metrics, clients, testimonials, or claims; where a number is missing, put `[TODO: metric]` and ask the owner.
+- Identity facts: 6+ years experience, New York based, contact liam@ljr.dev. Titles and the availability line say Forward Deployed Engineer / solutions engineering, not GTM.
 
 ## Files
 
