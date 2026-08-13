@@ -39,10 +39,8 @@ Facts and constraints:
   is fine as a separator. This applies to `<meta>` descriptions and og tags too.
 - Don't invent metrics, clients, testimonials, or claims. Where a number is missing, put
   `[TODO: metric]` and ask the owner.
-- Identity facts: 6+ years experience, New York area, contact liam@ljr.dev, github.com/LJR230.
-  Booking CTA: https://cal.com/ljr/intro. **No LinkedIn URL yet** — the redesign draft had a
-  placeholder pointing at linkedin.com's homepage and it was left out rather than shipped broken. Add
-  it to the hero `.metalinks` and the footer once the real URL exists.
+- Identity facts: 6+ years experience, New York area, contact liam@ljr.dev, github.com/LJR230,
+  linkedin.com/in/liam-j-roumila. Booking CTA: https://cal.com/ljr/intro.
 - Pricing on `/engagements/` and the home page cards must stay in sync: Automation Sprint from $500,
   Business Systems Build from $2,000, Technical Partner monthly retainer.
 
