@@ -1,0 +1,79 @@
+<!-- Source for /assets/og.png (1200x630 link-preview image).
+     Regenerate: python3 -m http.server 8765, then
+     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu \
+       --hide-scrollbars --window-size=1200,700 --screenshot=og.png http://localhost:8765/scripts/og.html
+     then crop the result to 1200x630. -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #0b0c0e;
+      }
+      .og {
+        width: 1200px;
+        height: 630px;
+        background: var(--bg);
+        display: flex;
+        flex-direction: column;
+      }
+      .og-inner {
+        flex: 1 1 auto;
+        min-height: 0;
+        padding: 78px 84px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .og-mark {
+        font-family: var(--mono);
+        font-size: 26px;
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: -0.01em;
+      }
+      .og-mark span {
+        color: var(--accent);
+      }
+      .og h1 {
+        font-size: 66px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        color: var(--text);
+        max-width: 960px;
+        margin: 34px 0 0;
+      }
+      .og-foot {
+        font-family: var(--mono);
+        font-size: 22px;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .og-foot .dot {
+        width: 11px;
+        height: 11px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="og">
+      <div class="og-inner">
+        <div>
+          <div class="og-mark">ljr<span>.</span>dev</div>
+          <h1>I build software around the way businesses actually operate.</h1>
+        </div>
+        <div class="og-foot">
+          <span class="dot"></span>
+          <span>software · automation · integrations · new york area</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -8,11 +8,11 @@
   --text: #e8eaed;
   --body: #b7bcc2;
   --muted: #9ba1a8;
-  --faint: #6e747b;
+  --faint: #7e858d;
   --accent: #4ade80;
   --danger: #f87171;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sans: "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
 }
 
 body {
