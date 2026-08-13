@@ -18,7 +18,13 @@ The two `:root` blocks must be kept in sync by hand. When changing a token, upda
 - Hierarchy comes from text color steps on one dark background, not from boxes and shadows. Cards are
   subtle: one shade above the background with a 1px border.
 - No gradients, no shadows, no decorative imagery. Motion is limited to a pulse on the demo's running
-  pipeline stage, 0.15s color transitions on buttons, and smooth scrolling.
+  pipeline stage, 0.15s color transitions on buttons, smooth scrolling, and the home page's node
+  network (below).
+- **Node-network background (home only, `assets/net.js`)**: a fixed canvas behind the content drawing
+  ~90 drifting nodes in `--muted` at 0.18–0.43 opacity, 1px links under 150px apart at ≤0.1 opacity,
+  with depth-based scroll parallax. Within 220px of the cursor, nodes and links render in `--accent`
+  and nodes are gently repelled. It must stay texture: grey by default, accent only under the cursor,
+  and skipped under `prefers-reduced-motion`.
 
 ## Color tokens
 

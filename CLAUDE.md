@@ -53,6 +53,8 @@ Facts and constraints:
   classes. Both other pages and every component share it.
 - `assets/fonts/*.woff2` — self-hosted Schibsted Grotesk (2 subsets) and JetBrains Mono (6 subsets),
   variable-weight, extracted from the old bundler export. No external font requests on these pages.
+- `assets/net.js` — the home page's animated node-network background (see Editing below). Home only;
+  the other pages have no scripts.
 - `assets/img/*.webp` — project screenshots.
 - `assets/og.png` — 1200×630 link-preview image. `assets/favicon.svg`, `assets/apple-touch-icon.png`.
 - `scripts/og.html` — the source page `assets/og.png` is rendered from; regeneration steps are in a
@@ -65,8 +67,12 @@ Facts and constraints:
 
 ## Editing the site
 
-These are plain static HTML files. Edit them directly; there is no build step, no bundler, and no
-runtime JavaScript on any of the three pages.
+These are plain static HTML files. Edit them directly; there is no build step and no bundler. The
+only runtime JavaScript is `assets/net.js`, the home page's decorative background: a `<canvas
+id="bg-net">` fixed at `z-index: 0` behind a `position: relative; z-index: 1` wrapper that holds all
+page content. It is pure decoration (`pointer-events: none`, `aria-hidden`), skips itself entirely
+under `prefers-reduced-motion: reduce`, and the page renders identically without it. Work and
+engagements have no scripts; keep it that way unless there's a reason.
 
 - **Structure and copy** live in the HTML. Layout comes from classes in `assets/site.css`; one-off
   spacing is a `style=""` attribute on the element.
