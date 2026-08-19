@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How I work · Engineering principles for legal data pipelines · LJR Dev</title>
+    <meta
+      name="description"
+      content="The principles behind LJR Dev's legal workflow automation: deterministic over generative, schema-first, every field traceable to its source, human review gates. Data handling posture and who you would be working with."
+    />
+    <link rel="canonical" href="https://ljr.dev/how-i-work/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ljr.dev" />
+    <meta property="og:url" content="https://ljr.dev/how-i-work/" />
+    <meta
+      property="og:title"
+      content="How I work · Engineering principles for legal data pipelines"
+    />
+    <meta
+      property="og:description"
+      content="Deterministic over generative, schema-first, every field traceable, human review gates. The principles behind pipelines built for law practices."
+    />
+    <meta property="og:image" content="https://ljr.dev/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="ljr.dev · deterministic data pipelines for law practices"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/assets/fonts/schibsted-grotesk-latin.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/assets/fonts/jetbrains-mono-latin.woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <nav class="site-nav">
+      <a class="wordmark" href="/">ljr<span>.</span>dev</a>
+      <div class="nav-links">
+        <a href="/estate-planning/">estate planning</a>
+        <a href="/immigration/">immigration</a>
+        <a href="/how-i-work/" aria-current="page">how i work</a>
+        <a class="btn btn--primary btn--nav" href="https://cal.com/ljr/intro"
+          >Book a call</a
+        >
+      </div>
+    </nav>
+
+    <header
+      class="wrap"
+      style="
+        padding-top: clamp(48px, 8vh, 90px);
+        padding-bottom: clamp(40px, 6vh, 64px);
+      "
+    >
+      <p class="page-kicker">how i work</p>
+      <h1 class="h1 h1--page" style="margin-bottom: 20px">
+        Principles first. The architecture follows.
+      </h1>
+      <p class="prose">
+        Law practices run on data that has to be right. These are the rules
+        every pipeline I build follows, the posture on client data, and who
+        you would actually be working with.
+      </p>
+    </header>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">Engineering principles</p>
+        <div class="grid grid--steps" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))">
+          <div>
+            <div class="step-head">
+              <span class="dot" style="width: 9px; height: 9px"></span
+              ><span class="step-num">01</span>
+            </div>
+            <p class="step-title">Deterministic over generative</p>
+            <p class="body-sm">
+              The same input produces the same output, every time. If a value
+              lands on a legal document or a government form, it got there
+              through explicit code that can be read, tested, and audited. Not
+              through a model's best guess.
+            </p>
+          </div>
+          <div>
+            <div class="step-head">
+              <span class="dot" style="width: 9px; height: 9px"></span
+              ><span class="step-num">02</span>
+            </div>
+            <p class="step-title">Schema-first</p>
+            <p class="body-sm">
+              The client record is defined once, precisely: names, roles,
+              relationships, assets, history. Every system in your stack maps
+              to that schema instead of holding its own slightly different
+              copy of the truth.
+            </p>
+          </div>
+          <div>
+            <div class="step-head">
+              <span class="dot" style="width: 9px; height: 9px"></span
+              ><span class="step-num">03</span>
+            </div>
+            <p class="step-title">Every field traceable</p>
+            <p class="body-sm">
+              Any value in any document traces back to who entered it, where,
+              and when. "Where did this number come from" is a lookup in the
+              audit log, not an investigation across inboxes.
+            </p>
+          </div>
+          <div>
+            <div class="step-head">
+              <span class="dot" style="width: 9px; height: 9px"></span
+              ><span class="step-num">04</span>
+            </div>
+            <p class="step-title">Human review gates</p>
+            <p class="body-sm">
+              The pipeline prepares. Your attorneys and paralegals approve.
+              Nothing is drafted, filed, or sent to a client without a person
+              signing off. Judgment stays with the people licensed to
+              exercise it.
+            </p>
+          </div>
+          <div>
+            <div class="step-head">
+              <span class="dot" style="width: 9px; height: 9px"></span
+              ><span class="step-num">05</span>
+            </div>
+            <p class="step-title">Fail loudly</p>
+            <p class="body-sm">
+              A value that fails validation stops and goes to a person. No
+              silent defaults, no best guesses, no "it probably meant this."
+              An error you can see costs minutes. An error that flows through
+              quietly costs a malpractice deductible.
+            </p>
+          </div>
+          <div>
+            <div class="step-head">
+              <span class="dot" style="width: 9px; height: 9px"></span
+              ><span class="step-num">06</span>
+            </div>
+            <p class="step-title">Built on your stack</p>
+            <p class="body-sm">
+              No rip-and-replace. The pipeline connects WealthCounsel, Clio,
+              Docketwise, and the rest of the software your firm already
+              chose. Your team keeps working in the tools they know.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">Where LLMs fit</p>
+        <div class="card card--wide" style="max-width: 680px">
+          <p class="body" style="line-height: 1.65">
+            I have built and shipped LLM integrations, and I use models where
+            they earn their place. In a legal data pipeline, that place is
+            never the pipeline of record. Nothing generated by a model lands
+            on a client document or a government form at runtime. Field
+            mappings are code. Where accuracy matters, the answer is
+            engineering, not a prompt.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">Data handling</p>
+        <h2 class="h2" style="margin-bottom: 24px; max-width: 620px">
+          Your clients' data is the whole point. It gets treated that way.
+        </h2>
+        <div class="stack" style="gap: 14px; max-width: 680px">
+          <ul class="bullets">
+            <li>
+              No client data is ever used to train anything. Not models, not
+              "product improvement," nothing.
+            </li>
+            <li>
+              Encryption in transit and at rest is the baseline for anything I
+              deploy.
+            </li>
+            <li>
+              Where client PII lives is an architecture decision made with
+              you, per engagement, around the systems and infrastructure your
+              firm already runs. Many builds keep data entirely inside the
+              platforms you already pay for, plus a datastore you control.
+            </li>
+            <li>
+              Access follows least privilege: the pipeline gets the narrowest
+              credentials that let it do its job, and those credentials stay
+              in your control.
+            </li>
+          </ul>
+          <p class="note" style="margin-top: 10px">
+            // the exact storage architecture is specified in writing as part
+            of every proposal
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">Who you're working with</p>
+        <div class="stack" style="gap: 16px; max-width: 680px">
+          <p class="prose">
+            LJR Dev is Liam Roumila, full-stack engineer and solutions
+            architect, and the founder and principal of the practice. 8+ years
+            building systems integration and data pipelines, 6+ of them
+            working directly inside client businesses: learning the operation
+            from the people doing the work, then shipping the system that
+            fixes it.
+          </p>
+          <p class="body" style="line-height: 1.65">
+            Before focusing on law practices, I designed, built, and operated
+            production SaaS end to end: subscription billing, scheduling
+            systems, and data enrichment pipelines, run in production with
+            real customers. That work is why the principles above exist. They
+            are what running systems that handle other people's money and
+            other people's data teaches you.
+          </p>
+          <p class="note">
+            no account managers · no handoffs · no outsourced team · you work
+            with me from the first call to the last commit
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">What an engagement looks like</p>
+        <div
+          class="grid grid--steps"
+          style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))"
+        >
+          <div>
+            <p class="step-num" style="margin-bottom: 10px">01</p>
+            <p class="step-title">Workflow mapping</p>
+            <p class="body-sm">
+              I follow a real matter through your office and map every point
+              where data gets re-keyed. Days, not months.
+            </p>
+          </div>
+          <div>
+            <p class="step-num" style="margin-bottom: 10px">02</p>
+            <p class="step-title">Fixed-scope proposal</p>
+            <p class="body-sm">
+              What gets built, the full field mapping, the data handling
+              architecture, and what "done" means. Scoped and priced per
+              firm.
+            </p>
+          </div>
+          <div>
+            <p class="step-num" style="margin-bottom: 10px">03</p>
+            <p class="step-title">Build + parallel run</p>
+            <p class="body-sm">
+              The pipeline runs alongside your current process on real work
+              until the outputs match. Then, and only then, cutover.
+            </p>
+          </div>
+          <div>
+            <p class="step-num" style="margin-bottom: 10px">04</p>
+            <p class="step-title">Support</p>
+            <p class="body-sm">
+              Monitoring, reconciliation reports, and keeping the mappings
+              current as your vendors and USCIS change things underneath you.
+            </p>
+          </div>
+        </div>
+        <p style="margin-top: 40px">
+          <a class="morelink" href="/estate-planning/"
+            >estate planning architecture →</a
+          >
+          <span style="display: inline-block; width: 20px"></span>
+          <a class="morelink" href="/immigration/"
+            >immigration architecture →</a
+          >
+        </p>
+      </div>
+    </section>
+
+    <section class="section section--cta">
+      <div class="wrap">
+        <h2 class="h2--cta" style="margin-bottom: 14px; max-width: 620px">
+          The call is the diagnostic. Bring one workflow.
+        </h2>
+        <p
+          style="
+            font-size: 16.5px;
+            color: var(--muted);
+            max-width: 540px;
+            margin-bottom: 28px;
+          "
+        >
+          30 minutes, free. If a pipeline isn't worth building for your
+          practice, I'll tell you that on the call.
+        </p>
+        <div class="actions actions--cta">
+          <a class="btn btn--primary" href="https://cal.com/ljr/intro"
+            >Book a call</a
+          >
+          <a class="metalink" href="mailto:liam@ljr.dev">liam@ljr.dev</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span
+          >ljr.dev · deterministic pipelines for law practices · new york</span
+        >
+        <div class="footer-links">
+          <a href="/">home</a>
+          <a href="/estate-planning/">estate planning</a>
+          <a href="/immigration/">immigration</a>
+          <a href="https://github.com/LJR230">github</a>
+          <a href="https://www.linkedin.com/in/liam-j-roumila">linkedin</a>
+          <a href="mailto:liam@ljr.dev">email</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Estate planning workflow automation · Intake to Clio to WealthDocx · LJR Dev</title>
+    <meta
+      name="description"
+      content="A reference architecture for estate planning law firms in New York: DecisionVault and Lawmatics intake, WealthCounsel Clio integration, and WealthDocx document assembly via the WealthCounsel API. Deterministic, audited, attorney-reviewed."
+    />
+    <link rel="canonical" href="https://ljr.dev/estate-planning/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ljr.dev" />
+    <meta property="og:url" content="https://ljr.dev/estate-planning/" />
+    <meta
+      property="og:title"
+      content="Estate planning workflow automation · Intake to Clio to WealthDocx"
+    />
+    <meta
+      property="og:description"
+      content="A reference architecture for estate planning practices: intake data entered once, validated, synced to Clio, and assembled into documents through WealthDocx via the WealthCounsel API."
+    />
+    <meta property="og:image" content="https://ljr.dev/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="ljr.dev · deterministic data pipelines for law practices"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/assets/fonts/schibsted-grotesk-latin.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/assets/fonts/jetbrains-mono-latin.woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <nav class="site-nav">
+      <a class="wordmark" href="/">ljr<span>.</span>dev</a>
+      <div class="nav-links">
+        <a href="/estate-planning/" aria-current="page">estate planning</a>
+        <a href="/immigration/">immigration</a>
+        <a href="/how-i-work/">how i work</a>
+        <a class="btn btn--primary btn--nav" href="https://cal.com/ljr/intro"
+          >Book a call</a
+        >
+      </div>
+    </nav>
+
+    <header
+      class="wrap"
+      style="
+        padding-top: clamp(48px, 8vh, 90px);
+        padding-bottom: clamp(40px, 6vh, 64px);
+      "
+    >
+      <p class="page-kicker">reference architecture · estate planning</p>
+      <h1 class="h1 h1--page" style="margin-bottom: 20px">
+        Intake to drafting, without re-keying.
+      </h1>
+      <p class="prose" style="margin-bottom: 16px">
+        This page is a reference architecture: a precise specification of how I
+        design and build an intake-to-drafting pipeline for an estate planning
+        practice. It is an engineering document, not a case study. What follows
+        is exactly what you would be hiring: the system, its data flow, its
+        failure handling, and where your attorneys stay in control.
+      </p>
+      <p class="note">
+        // skimmable for an attorney · specific enough for your office manager
+        to pressure-test
+      </p>
+    </header>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">The problem</p>
+        <h2 class="h2" style="margin-bottom: 24px; max-width: 600px">
+          One client, five copies of their data.
+        </h2>
+        <div class="stack" style="gap: 16px; max-width: 680px">
+          <p class="body" style="line-height: 1.65">
+            A new matter starts with a questionnaire. The client works through
+            a DecisionVault or Lawmatics intake: family structure, fiduciaries,
+            beneficiaries, assets. That data is correct exactly once, at the
+            moment the client enters it.
+          </p>
+          <p class="body" style="line-height: 1.65">
+            Then it gets copied. A paralegal re-keys it into Clio to open the
+            contact and the matter. Re-keys it again into the WealthDocx
+            interview to draft the plan. Types the asset list once more into
+            the funding schedule. A practice drafting 40 plans a month is
+            typically re-keying tens of thousands of fields a year.
+          </p>
+          <p class="body" style="line-height: 1.65">
+            Each pass is a chance for the error that matters: a settlor's name
+            spelled two ways between the trust agreement and a beneficiary
+            designation. A successor trustee present in one document and
+            missing from another. A funding schedule that no longer matches
+            what the client reported. Some of these surface at the signing
+            table. The worst surface years later, when the pour-over will is
+            probated in Surrogate's Court and the plan has to hold up as
+            written.
+          </p>
+          <p class="body" style="line-height: 1.65">
+            The exposure compounds because the package repeats itself: a
+            revocable living trust, pour-over wills, statutory short form
+            powers of attorney, health care proxies, HIPAA authorizations, and
+            funding instructions all carry the same names and the same
+            structure. They all have to match.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">Current state</p>
+        <h2 class="h2" style="margin-bottom: 24px; max-width: 620px">
+          The workflow most firms are running today.
+        </h2>
+        <div class="diagram" role="img" aria-label="Diagram of the manual workflow: intake answers in DecisionVault or Lawmatics are re-keyed by hand into Clio, re-keyed again into the WealthDocx interview, and only then become a draft trust package.">
+          <svg viewBox="0 0 940 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <marker id="arr-cur" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" style="fill: var(--faint)" />
+              </marker>
+            </defs>
+            <g style="font-family: var(--mono)">
+              <rect x="20" y="60" width="205" height="80" rx="10" style="fill: var(--bg); stroke: var(--border-soft)" />
+              <text x="122" y="95" text-anchor="middle" style="fill: var(--text); font-size: 13px; font-weight: 600">Intake questionnaire</text>
+              <text x="122" y="117" text-anchor="middle" style="fill: var(--muted); font-size: 11.5px">DecisionVault · Lawmatics</text>
+
+              <line x1="225" y1="100" x2="300" y2="100" style="stroke: var(--faint); stroke-width: 1.5; stroke-dasharray: 5 5" marker-end="url(#arr-cur)" />
+              <text x="263" y="48" text-anchor="middle" style="fill: var(--faint); font-size: 10px; letter-spacing: 0.08em">RE-KEYED</text>
+              <text x="263" y="62" text-anchor="middle" style="fill: var(--faint); font-size: 10px; letter-spacing: 0.08em">BY HAND</text>
+
+              <rect x="305" y="60" width="175" height="80" rx="10" style="fill: var(--bg); stroke: var(--border-soft)" />
+              <text x="392" y="95" text-anchor="middle" style="fill: var(--text); font-size: 13px; font-weight: 600">Clio</text>
+              <text x="392" y="117" text-anchor="middle" style="fill: var(--muted); font-size: 11.5px">contact + matter</text>
+
+              <line x1="480" y1="100" x2="555" y2="100" style="stroke: var(--faint); stroke-width: 1.5; stroke-dasharray: 5 5" marker-end="url(#arr-cur)" />
+              <text x="518" y="48" text-anchor="middle" style="fill: var(--faint); font-size: 10px; letter-spacing: 0.08em">RE-KEYED</text>
+              <text x="518" y="62" text-anchor="middle" style="fill: var(--faint); font-size: 10px; letter-spacing: 0.08em">AGAIN</text>
+
+              <rect x="560" y="60" width="200" height="80" rx="10" style="fill: var(--bg); stroke: var(--border-soft)" />
+              <text x="660" y="95" text-anchor="middle" style="fill: var(--text); font-size: 13px; font-weight: 600">WealthDocx</text>
+              <text x="660" y="117" text-anchor="middle" style="fill: var(--muted); font-size: 11.5px">interview answers</text>
+
+              <line x1="760" y1="100" x2="805" y2="100" style="stroke: var(--faint); stroke-width: 1.5" marker-end="url(#arr-cur)" />
+
+              <rect x="810" y="60" width="110" height="80" rx="10" style="fill: var(--bg); stroke: var(--border-soft)" />
+              <text x="865" y="95" text-anchor="middle" style="fill: var(--text); font-size: 13px; font-weight: 600">Drafts</text>
+              <text x="865" y="117" text-anchor="middle" style="fill: var(--muted); font-size: 11.5px">trust package</text>
+            </g>
+          </svg>
+          <p class="diagram-caption">
+            // the same names, dates, and asset lists typed into each system
+            separately; the funding schedule often makes a fourth pass
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">Target architecture</p>
+        <h2 class="h2" style="margin-bottom: 24px; max-width: 620px">
+          Intake becomes the single point of data entry.
+        </h2>
+        <p class="body" style="line-height: 1.65; max-width: 680px; margin-bottom: 28px">
+          Everything downstream of the questionnaire becomes a mapped,
+          validated, logged transfer. The client's answers land in one
+          canonical schema, and that schema feeds every other system. Nobody
+          types a client's name a second time.
+        </p>
+        <div class="diagram" role="img" aria-label="Diagram of the target architecture: intake flows into a normalization and validation layer holding one client and asset schema. From there, data syncs to Clio and feeds WealthDocx document assembly through the WealthCounsel API, ending in attorney review. Validation failures route to an exception queue, and every write is recorded in an audit log.">
+          <svg viewBox="0 0 940 330" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <marker id="arr-tgt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" style="fill: var(--faint)" />
+              </marker>
+            </defs>
+            <g style="font-family: var(--mono)">
+              <rect x="20" y="55" width="190" height="80" rx="10" style="fill: var(--bg); stroke: var(--border-soft)" />
+              <text x="115" y="90" text-anchor="middle" style="fill: var(--text); font-size: 13px; font-weight: 600">Intake</text>
+              <text x="115" y="112" text-anchor="middle" style="fill: var(--muted); font-size: 11.5px">DecisionVault · Lawmatics</text>
+
+              <line x1="210" y1="95" x2="253" y2="95" style="stroke: var(--faint); stroke-width: 1.5" marker-end="url(#arr-tgt)" />
+
+              <rect x="258" y="55" width="215" height="80" rx="10" style="fill: var(--bg); stroke: var(--accent); stroke-opacity: 0.55" />
+              <text x="365" y="90" text-anchor="middle" style="fill: var(--text); font-size: 13px; font-weight: 600">Normalize + validate</text>
+              <text x="365" y="112" text-anchor="middle" style="fill: var(--muted); font-size: 11.5px">one client + asset schema</text>
+
+              <line x1="473" y1="80" x2="548" y2="55" style="stroke: var(--faint); stroke-width: 1.5" marker-end="url(#arr-tgt)" />
+              <line x1="473" y1="110" x2="548" y2="160" style="stroke: var(--faint); stroke-width: 1.5" marker-end="url(#arr-tgt)" />
+
+              <rect x="553" y="20" width="190" height="70" rx="10" style="fill: var(--bg); stroke: var(--border-soft)" />
+              <text x="648" y="50" text-anchor="middle" style="fill: var(--text); font-size: 13px; font-weight: 600">Clio sync</text>
+              <text x="648" y="70" text-anchor="middle" style="fill: var(--muted); font-size: 11.5px">contacts · matters · fields</text>
+
+              <rect x="553" y="130" width="215" height="80" rx="10" style="fill: var(--bg); stroke: var(--border-soft)" />
+              <text x="660" y="165" text-anchor="middle" style="fill: var(--text); font-size: 13px; font-weight: 600">WealthDocx assembly</text>
+              <text x="660" y="187" text-anchor="middle" style="fill: var(--muted); font-size: 11.5px">via the WealthCounsel API</text>
+
+              <line x1="768" y1="170" x2="808" y2="170" style="stroke: var(--faint); stroke-width: 1.5" marker-end="url(#arr-tgt)" />
+
+              <rect x="813" y="130" width="107" height="80" rx="10" style="fill: var(--bg); stroke: var(--border-soft)" />
+              <text x="866" y="165" text-anchor="middle" style="fill: var(--text); font-size: 13px; font-weight: 600">Review</text>
+              <text x="866" y="187" text-anchor="middle" style="fill: var(--muted); font-size: 11.5px">by an attorney</text>
+
+              <line x1="365" y1="135" x2="365" y2="245" style="stroke: var(--faint); stroke-width: 1.5; stroke-dasharray: 5 5" marker-end="url(#arr-tgt)" />
+              <rect x="258" y="250" width="215" height="60" rx="10" style="fill: var(--bg); stroke: var(--border-soft); stroke-dasharray: 5 5" />
+              <text x="365" y="276" text-anchor="middle" style="fill: var(--text); font-size: 12.5px; font-weight: 600">Exception queue</text>
+              <text x="365" y="296" text-anchor="middle" style="fill: var(--muted); font-size: 11px">failures go to a person</text>
+
+              <line x1="660" y1="210" x2="660" y2="245" style="stroke: var(--faint); stroke-width: 1.5; stroke-dasharray: 5 5" marker-end="url(#arr-tgt)" />
+              <rect x="553" y="250" width="367" height="60" rx="10" style="fill: var(--bg); stroke: var(--border-soft); stroke-dasharray: 5 5" />
+              <text x="736" y="276" text-anchor="middle" style="fill: var(--text); font-size: 12.5px; font-weight: 600">Audit log</text>
+              <text x="736" y="296" text-anchor="middle" style="fill: var(--muted); font-size: 11px">every write: source → value → timestamp</text>
+            </g>
+          </svg>
+          <p class="diagram-caption">
+            // there is no LLM anywhere in this pipeline: every field mapping
+            is explicit code that can be read, tested, and audited
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">Data flow</p>
+        <div class="grid grid--steps">
+          <div>
+            <div class="step-head">
+              <span class="dot" style="width: 9px; height: 9px"></span
+              ><span class="step-num">01</span>
+            </div>
+            <p class="step-title">Capture</p>
+            <p class="body-sm">
+              The client submits the questionnaire. The pipeline pulls the
+              submission through the intake platform's API and stores it
+              unmodified. That raw record is the permanent source of truth for
+              what the client actually said.
+            </p>
+          </div>
+          <div>
+            <div class="step-head">
+              <span class="dot" style="width: 9px; height: 9px"></span
+              ><span class="step-num">02</span>
+            </div>
+            <p class="step-title">Validate</p>
+            <p class="body-sm">
+              Field-level checks against the schema: dates parse, counties are
+              real New York counties, beneficiary shares total 100 percent,
+              required fiduciary roles are filled. Anything that fails routes
+              to the exception queue for a person to resolve.
+            </p>
+          </div>
+          <div>
+            <div class="step-head">
+              <span class="dot" style="width: 9px; height: 9px"></span
+              ><span class="step-num">03</span>
+            </div>
+            <p class="step-title">Sync to Clio</p>
+            <p class="body-sm">
+              Contacts, matters, and custom fields are created or updated as
+              keyed upserts. Re-running a sync can never duplicate a matter or
+              overwrite a staff correction unnoticed.
+            </p>
+          </div>
+          <div>
+            <div class="step-head">
+              <span class="dot" style="width: 9px; height: 9px"></span
+              ><span class="step-num">04</span>
+            </div>
+            <p class="step-title">Assemble</p>
+            <p class="body-sm">
+              The schema maps into WealthDocx interview answers through the
+              WealthCounsel API, and the draft package comes back: trust,
+              pour-over wills, ancillary documents, funding schedule, all from
+              the same single record.
+            </p>
+          </div>
+          <div>
+            <div class="step-head">
+              <span class="dot" style="width: 9px; height: 9px"></span
+              ><span class="step-num">05</span>
+            </div>
+            <p class="step-title">Review</p>
+            <p class="body-sm">
+              An attorney reviews the drafts in the tools the firm already
+              uses. The pipeline prepares documents. It never sends, signs, or
+              files anything.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">Error handling &amp; audit trail</p>
+        <h2 class="h2" style="margin-bottom: 24px; max-width: 620px">
+          No silent defaults. No best guesses.
+        </h2>
+        <div class="grid grid--tight">
+          <div class="card card--pad">
+            <p class="card-title">Failures stop, they don't guess</p>
+            <p class="body-sm">
+              A value that fails validation never flows downstream. It lands in
+              the exception queue with its source shown, and a person resolves
+              it. The pipeline does not substitute a default and keep going.
+            </p>
+          </div>
+          <div class="card card--pad">
+            <p class="card-title">Every write is recorded</p>
+            <p class="body-sm">
+              Source field, destination, value, timestamp, and whether it was
+              client-entered or staff-corrected. If a value on a draft looks
+              wrong, "where did this come from" is one lookup, not an
+              investigation.
+            </p>
+          </div>
+          <div class="card card--pad">
+            <p class="card-title">Safe to re-run</p>
+            <p class="body-sm">
+              Syncs are idempotent and retried on failure. A run that dies
+              partway can be re-run whole without creating duplicate contacts
+              or matters.
+            </p>
+          </div>
+          <div class="card card--pad">
+            <p class="card-title">Drift gets caught</p>
+            <p class="body-sm">
+              A nightly reconciliation compares intake, Clio, and the generated
+              documents, and flags any mismatch before it reaches a signing
+              table.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">What stays human-reviewed</p>
+        <div class="stack" style="gap: 14px; max-width: 680px">
+          <ul class="bullets">
+            <li>
+              Plan design is attorney judgment: which trust, which fiduciaries,
+              how assets are handled. The pipeline moves those decisions
+              faithfully. It never makes them.
+            </li>
+            <li>
+              Every assembled document is reviewed by an attorney before a
+              client sees it.
+            </li>
+            <li>
+              The exception queue is worked by your staff, on your schedule,
+              with the source data in front of them.
+            </li>
+            <li>
+              The funding schedule is verified against source documents before
+              signing. The pipeline makes that check faster; it does not
+              replace it.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">Engagement shape</p>
+        <div
+          class="grid grid--steps"
+          style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))"
+        >
+          <div>
+            <p class="step-num" style="margin-bottom: 10px">01</p>
+            <p class="step-title">Workflow mapping</p>
+            <p class="body-sm">
+              I sit with your paralegals and follow a real matter from intake
+              to signing: which fields get re-typed, where, by whom. This is
+              days of work, not months, and it produces the field map the
+              build is priced from.
+            </p>
+          </div>
+          <div>
+            <p class="step-num" style="margin-bottom: 10px">02</p>
+            <p class="step-title">Fixed-scope proposal</p>
+            <p class="body-sm">
+              Exactly which integrations get built, the full field mapping, and
+              what "done" means. Scoped and priced per firm, because every
+              stack and every practice is different.
+            </p>
+          </div>
+          <div>
+            <p class="step-num" style="margin-bottom: 10px">03</p>
+            <p class="step-title">Build + parallel run</p>
+            <p class="body-sm">
+              The pipeline starts with one document package. Before anything
+              goes live, its output runs in parallel against your current
+              hand-keyed process on real matters until the two match.
+            </p>
+          </div>
+          <div>
+            <p class="step-num" style="margin-bottom: 10px">04</p>
+            <p class="step-title">Cutover + support</p>
+            <p class="body-sm">
+              Staff training, monitoring, and reconciliation reports. When
+              WealthCounsel or Clio changes something, maintaining the mapping
+              is part of the engagement, not a surprise invoice.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--cta">
+      <div class="wrap">
+        <h2 class="h2--cta" style="margin-bottom: 14px; max-width: 620px">
+          Walk me through your intake-to-drafting workflow.
+        </h2>
+        <p
+          style="
+            font-size: 16.5px;
+            color: var(--muted);
+            max-width: 540px;
+            margin-bottom: 28px;
+          "
+        >
+          30 minutes. I'll map where your client data gets re-keyed and tell
+          you honestly whether this architecture fits your practice.
+        </p>
+        <div class="actions actions--cta">
+          <a class="btn btn--primary" href="https://cal.com/ljr/intro"
+            >Book a call</a
+          >
+          <a class="metalink" href="mailto:liam@ljr.dev">liam@ljr.dev</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span
+          >ljr.dev · deterministic pipelines for law practices · new york</span
+        >
+        <div class="footer-links">
+          <a href="/">home</a>
+          <a href="/immigration/">immigration</a>
+          <a href="/how-i-work/">how i work</a>
+          <a href="https://github.com/LJR230">github</a>
+          <a href="https://www.linkedin.com/in/liam-j-roumila">linkedin</a>
+          <a href="mailto:liam@ljr.dev">email</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,8 +1,11 @@
 <!-- Source for /assets/og.png (1200x630 link-preview image).
      Regenerate: python3 -m http.server 8765, then
      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu \
-       --hide-scrollbars --window-size=1200,700 --screenshot=og.png http://localhost:8765/scripts/og.html
-     then crop the result to 1200x630. -->
+       --hide-scrollbars --virtual-time-budget=5000 --window-size=1200,700 \
+       --screenshot=og.png http://localhost:8765/scripts/og.html
+     then crop to the top 1200x630: sips -c 630 1200 --cropOffset 0 0 og.png
+     (rendering at exactly 630 tall clips the footer's descenders; keep the
+     700-then-crop shape). -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -67,11 +70,11 @@
       <div class="og-inner">
         <div>
           <div class="og-mark">ljr<span>.</span>dev</div>
-          <h1>I build software around the way businesses actually operate.</h1>
+          <h1>Your team types the same client data into three, four, five systems.</h1>
         </div>
         <div class="og-foot">
           <span class="dot"></span>
-          <span>software · automation · integrations · new york area</span>
+          <span>deterministic pipelines for law practices · new york</span>
         </div>
       </div>
     </div>

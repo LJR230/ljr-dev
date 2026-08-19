@@ -2,10 +2,11 @@
 
 This documents the visual system shared by the two surfaces of the site. The two surfaces are:
 
-- **Site** (`index.html`, `work/index.html`, `engagements/index.html`, served at `ljr.dev`) — plain
-  static HTML, all styling in `assets/site.css`, tokens as CSS custom properties in `:root`.
-- **Agent demo** (`demo/`, served at `ljr.dev/demo/`) — plain HTML + `demo.css`, same token names in
-  its own `:root`.
+- **Site** (`index.html`, `estate-planning/index.html`, `immigration/index.html`,
+  `how-i-work/index.html`, served at `ljr.dev`) — plain static HTML, all styling in
+  `assets/site.css`, tokens as CSS custom properties in `:root`.
+- **Agent demo** (`demo/`, served at `ljr.dev/demo/`, no longer linked from the site) — plain HTML +
+  `demo.css`, same token names in its own `:root`.
 
 The two `:root` blocks must be kept in sync by hand. When changing a token, update both.
 
@@ -123,6 +124,14 @@ availability line, page kickers, and `//` asides.
   border on hover.
 - **Screenshot** (`.shot`): 16/10 box, `object-fit: contain` against the `--card` fill, radius 10,
   1px border. `height: auto` is required or the `height=""` attribute defeats `aspect-ratio`.
+- **Architecture diagram** (`.diagram`, architecture pages): `--card` fill, 1px `--border`, radius
+  12, `overflow-x: auto` with a thin `--border-soft` scrollbar thumb; the inline SVG inside has
+  `min-width: 720px` (load-bearing: without it the SVG shrinks instead of scrolling on phones).
+  Diagram boxes are `--bg` fill with 1px `--border-soft` stroke (accent stroke at 0.55 opacity marks
+  the pipeline's core component); solid `--faint` arrows are automated flow, dashed arrows and
+  dashed boxes are manual steps or logging satellites. All diagram text is mono via
+  `style="font-family: var(--mono)"`; captions use `.diagram-caption` (mono 12.5px `--faint`, `//`
+  prefix).
 - **Pipeline stage (demo)**: 9px dot + mono stage name + truncated detail. States: pending (faint
   name), running (accent dot, 1s opacity pulse), done (accent dot), failed (`--danger` dot).
 - **Score (demo)**: mono 38px/500 number in accent; `#FBBF24` mid, `--danger` low; uppercase mono

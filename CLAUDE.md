@@ -4,87 +4,120 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Personal site for ljr.dev, served by GitHub Pages directly from `main` (CNAME → `ljr.dev`, `.nojekyll`
+Site for ljr.dev, served by GitHub Pages directly from `main` (CNAME → `ljr.dev`, `.nojekyll`
 disables Jekyll). The static site has no build step. A Vercel project on the same repo additionally
-deploys the `api/` serverless functions (the live agent demo backend, TypeScript, `npm run build` =
-`tsc --noEmit`) and serves `demo/` as its output. Both GitHub Pages and Vercel auto-deploy on push, so
-pushing to `main` is the deployment.
+deploys the `api/` serverless functions (TypeScript, `npm run build` = `tsc --noEmit`) and serves
+`demo/` as its output. Both GitHub Pages and Vercel auto-deploy on push, **so pushing to `main` is
+the deployment**.
 
 To preview locally: `python3 -m http.server` from the repo root, then open `http://localhost:8000/`.
 Open the files directly with `file://` only for a rough look: the root-absolute `/assets/...` paths
 will not resolve.
 
-## Positioning
+## Positioning (repositioned 2026-08)
 
-The site's owner (Liam Jabir Roumila; "Liam Roumila" on the resume) sells two things at once, and the
-copy has to serve both without picking a side:
+The site has exactly one job: **convert cold-email traffic from law firms into booked discovery
+calls.** The audience is high-volume boutique Estate Planning and Immigration practices in New York
+State; an attorney clicking through from an outreach email scans the site for 60 to 90 seconds
+deciding whether the owner is a credible specialist or another automation spammer.
 
-1. **Freelance / consulting** is the primary frame. Businesses hire him to eliminate manual work and
-   connect the systems they already use: automation, integrations, internal tools, AI workflows. This
-   is what the home page leads with and what `/engagements/` prices.
-2. **Full-time Forward Deployed Engineer / Solutions Engineer roles** are the secondary frame, carried
-   by the availability line ("available for projects & full-time roles"), the "For hiring teams" card
-   at the bottom of the home page's About section (which holds the resume, live demo, and GitHub
-   links), and the footer. Do not delete these; they are the whole job-seeking surface.
+The owner is Liam Roumila ("Liam" in first-person copy), full-stack engineer and solutions
+architect, operating as **LJR Dev**, an engineering practice specializing in deterministic data
+pipelines, systems integration, and operationally complex automation for law practices. Persona is
+engineer-first: precise, technical, calm. Not a marketing-agency voice.
 
-The through-line for both: he sits with the customer, understands the operation, and ships the thing
-that fixes it. Lead with evidence in problem → what I built → outcome form.
+The old generalist job-search portfolio purpose is dead. Do not reintroduce resume links, skills
+chips, generalist project grids, "open to roles/opportunities" language, or candidate framing.
+`LJR_RESUME.pdf` and `demo/` still exist in the repo but are deliberately unlinked from every page;
+keep them unlinked.
 
-Facts and constraints:
+### Honesty constraints (hard rules)
 
-- **Coachmake is offline.** coachmake.com no longer resolves. Present it as a case study; never link
-  it, and keep the copy past tense ("ran it in production", not "operate it in production").
-  AuditorsIQ (auditorsiq.com) and I Can Relate (icanrelate.co) are live and linkable.
-- **No em dashes anywhere in site copy.** Use commas, colons, or separate sentences. The `·` middot
-  is fine as a separator. This applies to `<meta>` descriptions and og tags too.
-- Don't invent metrics, clients, testimonials, or claims. Where a number is missing, put
-  `[TODO: metric]` and ask the owner.
-- Identity facts: 6+ years experience, New York area, contact liam@ljr.dev, github.com/LJR230,
-  linkedin.com/in/liam-j-roumila. Booking CTA: https://cal.com/ljr/intro.
-- Pricing on `/engagements/` and the home page cards must stay in sync: Automation Sprint from $500,
-  Business Systems Build from $2,000, Technical Partner monthly retainer.
+- **Zero attorney clients so far.** `/estate-planning/` and `/immigration/` are **Reference
+  Architectures**: engineering documents describing precisely how the system is built. They are
+  labeled as such and must never be reworded to imply a real engagement, client, or case study
+  existed.
+- No invented testimonials, client logos, firm names, or outcome metrics. Quantified estimates are
+  allowed only when clearly framed as estimates ("a 40-plan-per-month practice typically...").
+- No invented credentials or history. Approved biography facts: 8+ years building systems
+  integration and data pipelines; 6+ years working directly inside client businesses; previously
+  designed, built, and operated production SaaS (subscription billing, scheduling, data enrichment
+  pipelines). Prior projects are intentionally not named on the site.
+- If a new claim about the owner is needed and not derivable from this file or the site, insert a
+  `[NEEDS INPUT: ...]` placeholder and ask.
+- **Legal terminology must be exact.** Getting one term wrong costs more credibility than ten
+  correct terms earn. Flag any term you are less than certain about instead of guessing. Terms
+  vetted and in use: Surrogate's Court, probate, revocable living trust, pour-over will, funding
+  schedule, statutory short form power of attorney, health care proxy (NY), HIPAA authorization,
+  settlor, RFE, I-130 / I-485 / N-400, USCIS form editions / edition dates, A-number,
+  petitioner / beneficiary / derivative, family-based adjustment. Deliberately avoided: "receipt
+  notices" and "priority dates" (they belong to case *tracking*, which the architectures do not
+  claim to do); LawLogix product names (kept generic).
+- Vendor stack named on the site: WealthCounsel / WealthDocx, WealthCounsel API, Clio, LEAP,
+  Lawmatics, DecisionVault, Docketwise, INSZoom (Mitratech), LawLogix. Do not claim specifics about
+  a vendor's API surface beyond what the site already says.
+- **No LLM-at-runtime claims are load-bearing**: the site states that nothing on a client document
+  or government form is generated by an LLM at runtime, and that no client data is used to train
+  anything. Never add a feature or copy that contradicts this.
+- No pricing anywhere. Engagements are "scoped and priced per firm."
+
+### Copy style
+
+- **No em dashes anywhere in site copy**, including `<meta>` descriptions and og tags. Use commas,
+  colons, or separate sentences. The `·` middot is fine as a separator.
+- Plain, confident, specific. "Deterministic" is a load-bearing word; hype adjectives
+  ("cutting-edge") are banned. Short paragraphs: attorneys skim. US English.
+- Identity facts: contact liam@ljr.dev, booking CTA https://cal.com/ljr/intro, New York.
+  github.com/LJR230 and linkedin.com/in/liam-j-roumila appear in footers only.
 
 ## Files
 
-- `index.html` — home page.
-- `work/index.html` — `/work/`, six project case studies.
-- `engagements/index.html` — `/engagements/`, three pricing tiers.
-- `assets/site.css` — the entire stylesheet: `@font-face` rules, `:root` tokens, and component
-  classes. Both other pages and every component share it.
-- `assets/fonts/*.woff2` — self-hosted Schibsted Grotesk (2 subsets) and JetBrains Mono (6 subsets),
-  variable-weight, extracted from the old bundler export. No external font requests on these pages.
-- `assets/net.js` — the home page's animated node-network background (see Editing below). Home only;
-  the other pages have no scripts.
-- `assets/img/*.webp` — project screenshots.
+- `index.html` — home: pain-led hero, stack chips, re-keying problem, links to both architectures,
+  principles summary, principal blurb, CTA.
+- `estate-planning/index.html` — `/estate-planning/`, Reference Architecture: intake
+  (DecisionVault/Lawmatics) → normalized client/asset schema → Clio sync → WealthDocx assembly via
+  the WealthCounsel API.
+- `immigration/index.html` — `/immigration/`, Reference Architecture: person-centric client data
+  store → validation pinned to USCIS form editions → Docketwise/INSZoom population → form-edition
+  change detection.
+- `how-i-work/index.html` — `/how-i-work/`: engineering principles in full, where LLMs fit, data
+  handling posture, principal bio, engagement shape.
+- `work/index.html`, `engagements/index.html` — redirect stubs (meta-refresh + JS to `/`, noindex).
+  The old portfolio/pricing pages are gone; keep these stubs so old links never dead-end.
+- `assets/site.css` — the entire stylesheet: `@font-face` rules, `:root` tokens, component classes,
+  and the `.diagram` container for the architecture pages' SVGs. See `design.md`.
+- `assets/fonts/*.woff2` — self-hosted Schibsted Grotesk (2 subsets) and JetBrains Mono (6
+  subsets), variable-weight. No external font requests on site pages.
+- `assets/net.js` — the home page's animated node-network background. Home only; the other pages
+  have no scripts. Decorative: `pointer-events: none`, `aria-hidden`, skips itself under
+  `prefers-reduced-motion`, page renders identically without it.
+- `assets/img/*.webp` — legacy project screenshots, currently unused by any page (kept in repo).
 - `assets/og.png` — 1200×630 link-preview image. `assets/favicon.svg`, `assets/apple-touch-icon.png`.
-- `scripts/og.html` — the source page `assets/og.png` is rendered from; regeneration steps are in a
-  comment at the top of that file.
-- `demo/` — the live agent demo (plain HTML + `demo.css`), backed by `api/run.ts` on Vercel.
-- `LJR_RESUME.pdf` — linked from the hero, the "For hiring teams" card, and every footer.
+- `scripts/og.html` — source page for `assets/og.png`; regeneration steps are in the comment at the
+  top (render 1200×700 headless, crop to top 1200×630; exact-630 rendering clips descenders).
+- `sitemap.xml`, `robots.txt` — the four live URLs.
+- `demo/` + `api/` — the old live agent demo (Vercel). Unlinked from the site; do not re-link.
+- `LJR_RESUME.pdf` — kept in the repo, unlinked; do not re-link.
 - `404.html` — meta-refresh + JS redirect to `/`.
-- `Jabir Portfolio.html` — the pre-2026-08 design-tool export the old single-file site came from.
-  Gitignored, kept locally, no longer used.
+- `Jabir Portfolio.html` — pre-2026-08 design-tool export. Gitignored, kept locally, unused.
 
 ## Editing the site
 
-These are plain static HTML files. Edit them directly; there is no build step and no bundler. The
-only runtime JavaScript is `assets/net.js`, the home page's decorative background: a `<canvas
-id="bg-net">` fixed at `z-index: 0` behind a `position: relative; z-index: 1` wrapper that holds all
-page content. It is pure decoration (`pointer-events: none`, `aria-hidden`), skips itself entirely
-under `prefers-reduced-motion: reduce`, and the page renders identically without it. Work and
-engagements have no scripts; keep it that way unless there's a reason.
+Plain static HTML, edited directly; no build step. Structure and copy live in the HTML; layout
+comes from classes in `assets/site.css`; one-off spacing is a `style=""` attribute on the element.
 
-- **Structure and copy** live in the HTML. Layout comes from classes in `assets/site.css`; one-off
-  spacing is a `style=""` attribute on the element.
 - **Tokens** (`--bg`, `--card`, `--border`, `--text`, `--body`, `--muted`, `--faint`, `--accent`, …)
   are defined once in `:root` in `assets/site.css` and mirrored in `demo/demo.css`. Change both.
   See `design.md` for what each token means and the type scale.
-- **The nav, footer, and `<head>` block are duplicated across the three pages.** There is no include
-  mechanism, so a change to any of them has to be made three times (four, counting `demo/`).
-- **Images**: `.shot` sets `width: 100%; height: auto; aspect-ratio: 16/10; object-fit: contain`.
-  `height: auto` is load-bearing — without it the intrinsic `height=""` attribute wins and
-  `aspect-ratio` is ignored, which makes the boxes hundreds of pixels too tall. Keep `width`/`height`
-  attributes accurate to the file, and always write real `alt` text.
-- **Paths are root-absolute** (`/assets/…`, `/work/`) so the same markup works from any directory.
-- After editing, check it in a browser at more than one width; `clamp()`-based type and `auto-fit`
-  grids do most of the responsive work but the two-column project rows are worth re-checking.
+- **The nav, footer, and `<head>` block are duplicated across the four live pages** (home, both
+  architectures, how-i-work). There is no include mechanism; a change to any of them has to be made
+  four times. Nav is: estate planning · immigration · how i work · Book a call.
+- **Architecture diagrams** are hand-written inline SVG using the CSS tokens
+  (`style="fill: var(--text)"` etc.), inside a `.diagram` container that scrolls horizontally on
+  narrow screens (`min-width` on the svg is load-bearing). Each `.diagram` wrapper carries
+  `role="img"` and a full `aria-label` description; keep both accurate when editing a diagram.
+- **Paths are root-absolute** (`/assets/…`, `/estate-planning/`) so the same markup works from any
+  directory.
+- After editing, check in a browser at more than one width (desktop and ~390px). Wide content must
+  scroll inside its own container; the page must never scroll horizontally. Watch for stale-CSS
+  caching when previewing locally: hard-refresh after editing `site.css`.
